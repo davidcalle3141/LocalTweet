@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_tweets"
+        android:icon="@drawable/ic_twitter_logo_24dp"
+        android:title="@string/nav_title_tweets"
+        />
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search_24dp"
+        android:title="@string/nav_title_search"
+        />
+    <item
+        android:id="@+id/navigation_groups"
+        android:icon="@drawable/ic_groups_24dp"
+        android:title="@string/nav_title_groups"
+        />
+
+</menu>

@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/tweetsFragment">
+    <fragment
+        android:id="@+id/tweetsFragment"
+        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.TweetsFragment"
+        android:label="fragment_tweets"
+        tools:layout="@layout/fragment_tweets" >
+        <action
+            android:id="@+id/action_tweetsFragment2_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.searchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupsFragment"
+        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.groupsFragment"
+        android:label="fragment_groups"
+        tools:layout="@layout/fragment_groups" >
+        <action
+            android:id="@+id/action_groupsFragment_to_groupDetailFragment"
+            app:destination="@id/groupDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.profileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/groupDetailFragment"
+        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.groupDetailFragment"
+        android:label="fragment_group_detail"
+        tools:layout="@layout/fragment_group_detail" >
+        <action
+            android:id="@+id/action_groupDetailFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment><action android:id="@+id/action_global_tweetsFragment" app:destination="@id/tweetsFragment"/><action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"/><action android:id="@+id/action_global_groupsFragment" app:destination="@id/groupsFragment"/>
 </navigation>

@@ -11,5 +11,5 @@ import android.view.ViewGroup;
 import com.gmail.davidcalle3141.ny.ttp_me.R;
 
 
-public class groupDetailFragment extends Fragment {
+public class GroupDetailFragment extends Fragment {
 }

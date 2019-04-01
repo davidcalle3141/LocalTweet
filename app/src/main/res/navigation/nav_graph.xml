@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.searchFragment"
+        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/groupsFragment"
-        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.groupsFragment"
+        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.GroupsFragment"
         android:label="fragment_groups"
         tools:layout="@layout/fragment_groups" >
         <action
@@ -33,12 +33,12 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.profileFragment"
+        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/groupDetailFragment"
-        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.groupDetailFragment"
+        android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.GroupDetailFragment"
         android:label="fragment_group_detail"
         tools:layout="@layout/fragment_group_detail" >
         <action

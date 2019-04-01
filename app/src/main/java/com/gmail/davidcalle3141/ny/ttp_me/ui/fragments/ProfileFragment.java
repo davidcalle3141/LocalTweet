@@ -10,7 +10,5 @@ import android.view.ViewGroup;
 
 import com.gmail.davidcalle3141.ny.ttp_me.R;
 
-
-
-public class groupsFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 }

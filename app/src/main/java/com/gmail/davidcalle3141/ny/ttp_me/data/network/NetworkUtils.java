@@ -39,8 +39,9 @@ public class NetworkUtils {
 
     public void buildURLByLocation(String latitude, String longitude, String distance, String maxResults ) {
         urlBuilder = HttpUrl.parse(QUERY_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter("query","point_radius:["+latitude+" "+longitude+" "+distance+"mi]");
         urlBuilder.addQueryParameter("maxResults",maxResults);
+        urlBuilder.addQueryParameter("query","point_radius:["+latitude+" "+longitude+" "+distance+"mi]");
+        int b = -9;
 
     }
 

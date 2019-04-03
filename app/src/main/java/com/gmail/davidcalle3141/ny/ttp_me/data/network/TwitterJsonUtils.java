@@ -1,36 +1,76 @@
 package com.gmail.davidcalle3141.ny.ttp_me.data.network;
 
 import com.gmail.davidcalle3141.ny.ttp_me.data.Tweet.Tweet;
+import com.gmail.davidcalle3141.ny.ttp_me.data.Tweet.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class TwitterJsonUtils {
+    private User user;
+    private Tweet tweet;
+    private TwitterResponse twitterResponse;
+    private JSONObject results;
+    private JSONArray resultsJSONArray;
+    private JSONObject tempObject;
+    private JSONObject nestedObject;
 
-    public List<Tweet> parseTwitterJson(String twitterJSONData) throws JSONException {
-        JSONObject results = new JSONObject(twitterJSONData);
-        JSONArray resultsJSONArray = results.getJSONArray("results");
-        JSONObject tempObject;
-        JSONObject nestedObject;
-        List<Tweet> tweetList = new ArrayList<>();
-        for(int i=0;i< results.length();i++){
-            tweetList.add(new Tweet());
-            tweetList.get(i).setNext(results.getString("next"));
-            tempObject = resultsJSONArray.getJSONObject(i);
-            tweetList.get(i).setId_str(tempObject.getString("id_str"));
-            tweetList.get(i).setCreated_at(tempObject.getString("created_at"));
-            tweetList.get(i).setText(tempObject.getString("text"));
-            nestedObject = tempObject.getJSONObject("user");
-            tweetList.get(i).setUser_id(nestedObject.getString("id_str"));
-            nestedObject = tempObject.getJSONObject("entities");
-            if(nestedObject.has("media")){
-                nestedObject = nestedObject.getJSONObject("media");
-                tweetList.get(i).setMedia_url_https(nestedObject.getString("media_url_https"));}
+    public TwitterResponse parseTwitterJson(String twitterJSONData) throws JSONException {
+        twitterResponse = new TwitterResponse();
+        results = new JSONObject(twitterJSONData);
+        twitterResponse.setNext(results.getString("next"));
+        resultsJSONArray = results.getJSONArray("results");
+        for(int i=0;i< resultsJSONArray.length();i++){
+            tweet = parseTweet(i);
+            user = parseUser(i);
+            twitterResponse.addTweet(tweet,user);
         }
-        return tweetList;
+        return twitterResponse;
     }
+
+    public TwitterResponse parseUserTimeline(String twitterJSONData) throws JSONException {
+        twitterResponse = new TwitterResponse();
+        resultsJSONArray = new JSONArray(twitterJSONData);
+        for(int i =0; i<resultsJSONArray.length();i++){
+            tweet = parseTweet(i);
+            twitterResponse.addTweet(tweet);
+        }
+        return twitterResponse;
+    }
+
+
+    private User parseUser(int index) throws JSONException {
+        tempObject = resultsJSONArray.getJSONObject(index);
+        nestedObject = tempObject.getJSONObject("user");
+        String id_str = nestedObject.getString("id_str");
+        String name = nestedObject.getString("name");
+        String screen_name = nestedObject.getString("screen_name");
+        String profile_image_url = nestedObject.getString("profile_image_url");
+        String profile_image_url_http = nestedObject.getString("profile_image_url_https");
+        String friends_count = nestedObject.getString("friends_count");
+        String followers_count = nestedObject.getString("followers_count");
+        String location = nestedObject.getString("location");
+
+        return new User(id_str,name,screen_name,location,profile_image_url,profile_image_url_http,friends_count,followers_count);
+
+    }
+
+    private Tweet parseTweet(int index) throws JSONException {
+        tempObject = resultsJSONArray.getJSONObject(index);
+        String media_url_https = null;
+        String id_str = tempObject.getString("id_str");
+        String created_at = tempObject.getString("created_at");
+        String text = tempObject.getString("text");
+        nestedObject = tempObject.getJSONObject("entities");
+        if(nestedObject.has("media")){
+            media_url_https = nestedObject.getJSONArray("media").getJSONObject(0).get("media_url_https").toString();
+        }
+
+        return new Tweet(id_str,created_at,text, media_url_https);
+
+    }
+
+
 }

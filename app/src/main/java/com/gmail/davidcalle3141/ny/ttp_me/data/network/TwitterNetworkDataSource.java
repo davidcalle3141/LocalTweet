@@ -24,7 +24,7 @@ public class TwitterNetworkDataSource {
     public TwitterNetworkDataSource(Context context, AppExecutors executors){
         this.mContext = context;
         this.mExecutors = executors;
-        this.mDownloadedTweets = new MutableLiveData<List<Tweet>>();
+        this.mDownloadedTweets = new MutableLiveData<>();
         this.networkUtils = new NetworkUtils(context);
     }
 
@@ -44,7 +44,7 @@ public class TwitterNetworkDataSource {
                 String twitterJSONData;
                 networkUtils.buildURLByLocation(latitude,longitude,distance,maxResults);
                 twitterJSONData = networkUtils.getResponse();
-                twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData);
+                twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData).getTweets();
                 mDownloadedTweets.postValue(twitterResponse);
 
             }catch (Exception e){
@@ -52,14 +52,14 @@ public class TwitterNetworkDataSource {
             }
         });
     }
-    void fetchTweetsByHashtag(String hashtag,String maxResults){
+    public void fetchTweetsByHashtag(String hashtag,String maxResults){
         mExecutors.networkIO().execute(()->{
             try{
                 List<Tweet> twitterResponse;
                 String twitterJSONData;
                 networkUtils.buildURLByHashtag(hashtag,maxResults);
                 twitterJSONData = networkUtils.getResponse();
-                twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData);
+                twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData).getTweets();
                 mDownloadedTweets.postValue(twitterResponse);
             }catch (Exception e){
                 e.printStackTrace();
@@ -68,14 +68,14 @@ public class TwitterNetworkDataSource {
 
 
     }
-    void fetchTweetsByUser(String str_id,String count){
+    public void fetchTweetsByUser(String str_id,String count){
         mExecutors.networkIO().execute(()->{
             try{
                 List<Tweet> twitterResponse;
                 String twitterJSONData;
                 networkUtils.buildURLByUserID(str_id,count);
                 twitterJSONData = networkUtils.getResponse();
-                twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData);
+                twitterResponse = new TwitterJsonUtils().parseUserTimeline(twitterJSONData).getTweets();
                 mDownloadedTweets.postValue(twitterResponse);
             }catch (Exception e){
                 e.printStackTrace();
@@ -83,6 +83,12 @@ public class TwitterNetworkDataSource {
         });
 
     }
+
+    public LiveData<List<Tweet>> getTweets(){
+        return mDownloadedTweets;
+    }
+
+
 
 
 }

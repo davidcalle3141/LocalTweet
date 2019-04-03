@@ -4,12 +4,18 @@ public class Tweet {
     private String id_str;
     private String created_at;
     private String text;
-    private String user_id;
     private String media_url_https;
-    private String next;
+    private User user;
+
 
 
     public Tweet(){};
+    public Tweet(String id_str, String created_at, String text, String media_url_https){
+        this.id_str = id_str;
+        this.created_at = created_at;
+        this.text = text;
+        this.media_url_https = media_url_https;
+    }
 
 
     public void setCreated_at(String created_at) {
@@ -25,10 +31,13 @@ public class Tweet {
         this.text = text;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
 
     public String getId_str() {
         return id_str;
@@ -42,9 +51,6 @@ public class Tweet {
         return text;
     }
 
-    public String getUser() {
-        return user_id;
-    }
 
     public String getMedia_url_https() {
         return media_url_https;
@@ -54,11 +60,4 @@ public class Tweet {
         this.media_url_https = media_url_https;
     }
 
-    public String getNext() {
-        return next;
-    }
-
-    public void setNext(String next) {
-        this.next = next;
-    }
 }

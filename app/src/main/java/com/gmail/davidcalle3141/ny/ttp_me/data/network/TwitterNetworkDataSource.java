@@ -2,9 +2,8 @@ package com.gmail.davidcalle3141.ny.ttp_me.data.network;
 
 import android.content.Context;
 
-import com.gmail.davidcalle3141.ny.ttp_me.data.Tweet.Tweet;
+import com.gmail.davidcalle3141.ny.ttp_me.data.Models.Tweet;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.AppExecutors;
-import com.google.android.exoplayer2.BuildConfig;
 
 import java.util.List;
 
@@ -83,6 +82,7 @@ public class TwitterNetworkDataSource {
         });
 
     }
+
 
     public LiveData<List<Tweet>> getTweets(){
         return mDownloadedTweets;

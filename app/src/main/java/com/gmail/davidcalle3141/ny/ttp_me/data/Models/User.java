@@ -1,4 +1,4 @@
-package com.gmail.davidcalle3141.ny.ttp_me.data.Tweet;
+package com.gmail.davidcalle3141.ny.ttp_me.data.Models;
 
 public class User {
     private String id_str;

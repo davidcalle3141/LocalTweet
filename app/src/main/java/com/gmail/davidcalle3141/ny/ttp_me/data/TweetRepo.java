@@ -1,8 +1,12 @@
 package com.gmail.davidcalle3141.ny.ttp_me.data;
 
-import com.gmail.davidcalle3141.ny.ttp_me.data.Tweet.Tweet;
+import com.gmail.davidcalle3141.ny.ttp_me.data.Models.Tweet;
 import com.gmail.davidcalle3141.ny.ttp_me.data.network.TwitterNetworkDataSource;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.AppExecutors;
+
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
 
 public class TweetRepo {
 
@@ -10,6 +14,7 @@ public class TweetRepo {
     private static TweetRepo sInstance;
     private final TwitterNetworkDataSource mTwitterNDS;
     private final AppExecutors mExecutors;
+    private final String count = "10";
 
     private TweetRepo(TwitterNetworkDataSource twitterNetworkDataSource, AppExecutors executors){
         this.mExecutors = executors;
@@ -25,7 +30,21 @@ public class TweetRepo {
         return sInstance;
     }
 
-    //TODO add network methods
+
+    public void fetchLocalTweets(String latitude,String longitude,String distance) {
+        mTwitterNDS.fetchTweetByLocation(latitude,longitude,distance,count);
+    }
+    public void fetchTweetsByUser(String str_id){
+        mTwitterNDS.fetchTweetsByUser(str_id,count);
+    }
+    public void fetchTweetsByHashtag(String hashtag){
+        mTwitterNDS.fetchTweetsByHashtag(hashtag,count);
+    }
+
+    public LiveData<List<Tweet>> getTweets(){
+        return mTwitterNDS.getTweets();
+    }
+
 
 
 }

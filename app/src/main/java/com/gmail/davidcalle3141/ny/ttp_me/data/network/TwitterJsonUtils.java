@@ -1,7 +1,7 @@
 package com.gmail.davidcalle3141.ny.ttp_me.data.network;
 
-import com.gmail.davidcalle3141.ny.ttp_me.data.Tweet.Tweet;
-import com.gmail.davidcalle3141.ny.ttp_me.data.Tweet.User;
+import com.gmail.davidcalle3141.ny.ttp_me.data.Models.Tweet;
+import com.gmail.davidcalle3141.ny.ttp_me.data.Models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;

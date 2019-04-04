@@ -59,6 +59,10 @@ dependencies {
     //okhttp
     implementation 'com.squareup.okhttp:okhttp:2.7.2'
 
+    //locationServices
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 
 
-    }
+
+
+}

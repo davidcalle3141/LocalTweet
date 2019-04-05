@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 
-public class AppExecutors {
+ public class AppExecutors {
     private static final Object LOCK = new Object();
     private static AppExecutors sInstance;
     private final Executor diskIO;

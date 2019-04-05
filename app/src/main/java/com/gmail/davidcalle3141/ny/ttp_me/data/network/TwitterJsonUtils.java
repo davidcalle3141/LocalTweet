@@ -20,6 +20,7 @@ public class TwitterJsonUtils {
     public TwitterResponse parseTwitterJson(String twitterJSONData) throws JSONException {
         twitterResponse = new TwitterResponse();
         results = new JSONObject(twitterJSONData);
+        if (results.length() == 0) return new TwitterResponse();
         twitterResponse.setNext(results.getString("next"));
         resultsJSONArray = results.getJSONArray("results");
         for(int i=0;i< resultsJSONArray.length();i++){
@@ -67,6 +68,11 @@ public class TwitterJsonUtils {
         if(nestedObject.has("media")){
             media_url_https = nestedObject.getJSONArray("media").getJSONObject(0).get("media_url_https").toString();
         }
+        if(tempObject.has("extended_tweet")){
+        tempObject = tempObject.getJSONObject("extended_tweet");
+        if(tempObject.has("full_text")){
+            text = tempObject.getString("full_text");
+        }}
 
         return new Tweet(id_str,created_at,text, media_url_https);
 

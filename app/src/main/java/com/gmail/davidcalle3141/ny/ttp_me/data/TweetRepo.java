@@ -1,5 +1,6 @@
 package com.gmail.davidcalle3141.ny.ttp_me.data;
 
+import com.gmail.davidcalle3141.ny.ttp_me.data.Models.LocationModel;
 import com.gmail.davidcalle3141.ny.ttp_me.data.Models.Tweet;
 import com.gmail.davidcalle3141.ny.ttp_me.data.network.TwitterNetworkDataSource;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.AppExecutors;
@@ -15,10 +16,12 @@ public class TweetRepo {
     private final TwitterNetworkDataSource mTwitterNDS;
     private final AppExecutors mExecutors;
     private final String count = "10";
+    private boolean mLocationInitialized;
 
     private TweetRepo(TwitterNetworkDataSource twitterNetworkDataSource, AppExecutors executors){
         this.mExecutors = executors;
         this.mTwitterNDS = twitterNetworkDataSource;
+
     }
 
     public synchronized static TweetRepo getInstance(TwitterNetworkDataSource twitterNetworkDataSource, AppExecutors executors){
@@ -28,6 +31,12 @@ public class TweetRepo {
             }
         }
         return sInstance;
+    }
+
+    private void initializeLocation(){
+        if(mLocationInitialized) return;
+        mLocationInitialized = true;
+        mTwitterNDS.fetchLocation();
     }
 
 
@@ -40,10 +49,18 @@ public class TweetRepo {
     public void fetchTweetsByHashtag(String hashtag){
         mTwitterNDS.fetchTweetsByHashtag(hashtag,count);
     }
+    public void fetchLocation(){
+        mTwitterNDS.fetchLocation();
+    }
 
     public LiveData<List<Tweet>> getTweets(){
         return mTwitterNDS.getTweets();
     }
+
+    public LiveData<LocationModel> getLocation(){
+        initializeLocation();
+        return mTwitterNDS.getLocation();}
+
 
 
 

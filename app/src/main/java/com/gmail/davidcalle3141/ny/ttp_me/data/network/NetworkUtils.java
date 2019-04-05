@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.gmail.davidcalle3141.ny.ttp_me.R;
 import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -16,7 +15,7 @@ import android.util.Base64;
 import java.io.IOException;
 
 
-public class NetworkUtils {
+ class NetworkUtils {
     private final String API_KEY;
     private final String API_SECRET;
     private final String ACCESS_KEY;
@@ -27,15 +26,18 @@ public class NetworkUtils {
     private final String USER_TIMELINE_BASE_URL = "https://api.twitter.com/1.1/statuses/user_timeline.json";
     private OkHttpClient client = new OkHttpClient();
     private HttpUrl.Builder urlBuilder;
+    private final Context mContext;
 
 
-    public NetworkUtils(Context context){
+
+     public NetworkUtils(Context context){
         API_KEY = context.getString(R.string.API_KEY);
         API_SECRET = context.getString(R.string.API_SECRET);
         ACCESS_KEY = context.getString(R.string.ACCESS_TOKEN);
         ACCESS_SECRET = context.getString(R.string.ACCESS_SECRET);
         BEARER_TOKEN = context.getString(R.string.BEARER_TOKEN);
-    }
+         this.mContext = context;
+     }
 
     public void buildURLByLocation(String latitude, String longitude, String distance, String maxResults ) {
         urlBuilder = HttpUrl.parse(QUERY_BASE_URL).newBuilder();
@@ -75,10 +77,20 @@ public class NetworkUtils {
                 .addHeader("cache-control", "no-cache")
                 .build();
         Response response = client.newCall(request).execute();
-        String string = response.body().string();
-        return string;
-
+        return response.body().string();
     }
+
+     public String getLocationViaIP() throws IOException {
+         client = new OkHttpClient();
+         Request request = new Request.Builder()
+                 .url("http://api.ipstack.com/check?access_key="+mContext.getString(R.string.IP_KEY))
+                 .get()
+                 .build();
+
+             Response response = client.newCall(request).execute();
+             return response.body().string();
+
+     }
 
     private String generateBearerToken() {
         String credentials = API_KEY+":"+API_SECRET;

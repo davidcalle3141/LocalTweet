@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/tweet_author_profile_pic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         />
 
 
@@ -23,7 +22,6 @@
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="david calle"
         app:layout_constraintStart_toEndOf="@id/tweet_author_profile_pic"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -32,21 +30,19 @@
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="adavidcalle7229"
         app:layout_constraintStart_toEndOf="@id/tweet_author_name"
         app:layout_constraintTop_toTopOf="parent"
 
         />
+
     <TextView
-        android:id="@+id/tweet_time_since_posted"
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="10d"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:id="@+id/tweet_time_created"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:gravity="start"
+        app:layout_constraintStart_toEndOf="@+id/tweet_author_profile_pic"
+        app:layout_constraintTop_toBottomOf="@id/tweet_tweet" />
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/tweet_video_view"
@@ -63,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/tweet_author_name"
+        app:layout_constraintTop_toBottomOf="@id/tweet_time_created"
 
         />
 
@@ -73,8 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:text="ksfdjl dfskljfdslkdfjds lsdkfjslkfjs lsdjfslkdfjs lskdjfs ;a skdfl;jasldkfa jskdlfjal;fj skdlf;aj"
-        app:layout_constraintEnd_toStartOf="@+id/tweet_time_since_posted"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/tweet_author_profile_pic"
         app:layout_constraintTop_toBottomOf="@+id/tweet_author_name" />

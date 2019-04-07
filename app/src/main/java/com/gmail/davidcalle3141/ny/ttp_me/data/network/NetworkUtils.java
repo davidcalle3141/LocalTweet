@@ -22,7 +22,7 @@ import java.io.IOException;
     private final String ACCESS_SECRET;
     private final String BEARER_TOKEN;
     private final String BASE_URL = "api.twitter.com";
-    private final String QUERY_BASE_URL = "https://api.twitter.com/1.1/tweets/search/30day/TPPME.json";
+    private final String QUERY_BASE_URL = "https://api.twitter.com/1.1/tweets/search/30day/TPPMEE.json";
     private final String USER_TIMELINE_BASE_URL = "https://api.twitter.com/1.1/statuses/user_timeline.json";
     private OkHttpClient client = new OkHttpClient();
     private HttpUrl.Builder urlBuilder;
@@ -92,7 +92,7 @@ import java.io.IOException;
 
      }
 
-    private String generateBearerToken() {
+    public String generateBearerToken() {
         String credentials = API_KEY+":"+API_SECRET;
         String base64 = android.util.Base64.encodeToString(credentials.getBytes(),Base64.NO_WRAP | Base64.URL_SAFE);
         urlBuilder =

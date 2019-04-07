@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -55,7 +56,7 @@ import java.util.Objects;
 import static android.content.Context.WIFI_SERVICE;
 
 
-public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapterOnClickListener {
+public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapterOnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 
     private static final int REQUEST_LOCATION_PERMISSION = 1 ;
@@ -76,6 +77,8 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
 
     @BindView(R.id.tweets_rv)
     RecyclerView recyclerView;
+    @BindView(R.id.tweet_fragment_swipe_to_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
     public TweetsFragment() {
@@ -99,16 +102,21 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
         recyclerView.setLayoutManager(linearLayoutManager);
         tweetAdapter = new TweetAdapter(mContext,this);
         recyclerView.setAdapter(tweetAdapter);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+
         mFactory = InjectorUtils.provideTweetFactory(mContext);
         return view;
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         mViewModel = ViewModelProviders.of(this,mFactory).get(TweetsViewModel.class);
         mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()),mFactory).get(TweetsViewModel.class);
-        mViewModel.getmLocation().observe(this, locationModel -> {
+        mViewModel.getLocation().observe(this, locationModel -> {
             if(locationModel!=null){
                 populateUI(locationModel);
             }
@@ -145,7 +153,7 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
         }else{
             mViewModel = ViewModelProviders.of(this,mFactory).get(TweetsViewModel.class);
             mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()),mFactory).get(TweetsViewModel.class);
-            mViewModel.getmLocation().observe(this, locationModel -> {
+            mViewModel.getLocation().observe(this, locationModel -> {
                 if(locationModel!=null){
                     populateUI(locationModel);
                 }
@@ -160,5 +168,14 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
     public void onItemClick(int position) {
 
     }
+
+    @Override
+    public void onRefresh() {
+        mViewModel.updateLocation();
+        swipeRefreshLayout.setRefreshing(false);
+
+    }
+
+
 }
 

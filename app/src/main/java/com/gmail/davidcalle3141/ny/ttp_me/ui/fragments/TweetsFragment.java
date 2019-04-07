@@ -105,7 +105,7 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
         swipeRefreshLayout.setOnRefreshListener(this);
 
 
-        mFactory = InjectorUtils.provideTweetFactory(mContext);
+        mFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
         return view;
     }
 
@@ -125,7 +125,7 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFactory = InjectorUtils.provideTweetFactory(Objects.requireNonNull(getActivity()));
+        mFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
         checkPermission();
 
 

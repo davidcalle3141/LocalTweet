@@ -32,6 +32,10 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
         this.groupList.addAll(groups);
     }
 
+    public Group getGroup(int index){
+        return groupList.get(index);
+    }
+
     @NonNull
     @Override
     public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

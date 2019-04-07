@@ -71,7 +71,7 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
         recyclerView.setAdapter(tweetAdapter);
 
 
-        mTweetVMFactory = InjectorUtils.provideTweetFactory(mContext);
+        mTweetVMFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
         mTweetViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()), mTweetVMFactory).get(TweetsViewModel.class);
 
         mGroupsVMFactory = InjectorUtils.provideGroupFactory(mContext.getApplicationContext());

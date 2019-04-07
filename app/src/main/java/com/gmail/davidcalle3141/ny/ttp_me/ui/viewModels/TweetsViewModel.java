@@ -36,6 +36,7 @@ public class TweetsViewModel extends ViewModel {
     public LiveData<List<Tweet>> getSearchTweets(){
         return mSearchTweetList;}
 
+
     public void fetchLocalTweets(String latitude, String longitude, String distance){
         mRepo.fetchLocalTweets(longitude,latitude,distance);
     }

@@ -75,7 +75,7 @@
             android:id="@+id/tweet_tweet"
             android:textColor="@color/tw__tweet_light_primary_text_color"
             android:layout_width="0dp"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"

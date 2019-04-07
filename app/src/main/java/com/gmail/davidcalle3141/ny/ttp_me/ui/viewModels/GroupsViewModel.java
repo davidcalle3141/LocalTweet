@@ -18,6 +18,7 @@ public class GroupsViewModel extends ViewModel {
     private final GroupRepo mRepo;
     private LiveData<List<Group>> mGroupList;
     private MutableLiveData<Group> mFocusedGroup;
+    private String hashTag;
 
 
 
@@ -30,6 +31,7 @@ public class GroupsViewModel extends ViewModel {
         return mGroupList;
     }
     public void setFocusedGroup(String hashtag){
+        this.hashTag = hashtag;
         DateFormat df = new SimpleDateFormat("dd MM yyyy, HH:mm", Locale.US);
         String date = df.format(Calendar.getInstance().getTime());
         mFocusedGroup.setValue(new Group(hashtag,date));
@@ -43,5 +45,9 @@ public class GroupsViewModel extends ViewModel {
     }
     public void deleteGroup(Group group){
         mRepo.deleteGroup(group);
+    }
+
+    public String getHashTag() {
+        return hashTag;
     }
 }

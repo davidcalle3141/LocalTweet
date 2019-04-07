@@ -3,6 +3,7 @@ package com.gmail.davidcalle3141.ny.ttp_me.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -56,7 +57,7 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_search,container,false);
         ButterKnife.bind(this,view);
@@ -80,19 +81,22 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mTweetVMFactory = InjectorUtils.provideTweetFactory(Objects.requireNonNull(getActivity()));
         populateUI();
     }
 
     private void populateUI() {
         mTweetViewModel.getSearchTweets().observe(this, tweetList -> {
             if(tweetList!=null&&tweetList.size()>0){
+                if(!mTweetViewModel.getHashtag().equals("")) searchView.setQueryHint(mTweetViewModel.getHashtag());
                 tweetAdapter.addTweetList(tweetList);
                 tweetAdapter.notifyDataSetChanged();
                 button.setVisibility(View.VISIBLE);
+
             }else{
                 button.setVisibility(View.INVISIBLE);
             }
+
+
         });
     }
 

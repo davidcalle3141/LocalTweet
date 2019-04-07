@@ -84,7 +84,4 @@ public class TweetRepo {
         initializeLocation();
         return mTwitterNDS.getLocation();}
 
-
-
-
 }

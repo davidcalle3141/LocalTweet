@@ -14,38 +14,39 @@ import androidx.fragment.app.Fragment;
 
 public class BottomNavBehaviour extends CoordinatorLayout.Behavior<BottomNavigationView> {
 
-    public BottomNavBehaviour(){
+    public BottomNavBehaviour() {
         super();
     }
 
-    public BottomNavBehaviour(Context context, AttributeSet attributeSet){
-        super(context, attributeSet);
+    public BottomNavBehaviour(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
     @Override
-    public boolean layoutDependsOn(@NonNull CoordinatorLayout parent, @NonNull BottomNavigationView child, @NonNull View dependency) {
-        return dependency instanceof FrameLayout;
+    public boolean layoutDependsOn(CoordinatorLayout parent, BottomNavigationView child, View dependency) {
+        boolean dependsOn = dependency instanceof FrameLayout;
+        return dependsOn;
     }
 
     @Override
-    public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull BottomNavigationView child, @NonNull View directTargetChild, @NonNull View target, int axes, int type) {
-        return axes == ViewCompat.SCROLL_AXIS_VERTICAL;
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child, View directTargetChild, View target, int nestedScrollAxes) {
+        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
     }
 
     @Override
-    public void onNestedPreScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull BottomNavigationView child, @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
-        if(dy < 0){
-            showBottomNavView(child);
-        }else if (dy>0){
-            hideBottomNavView(child);
+    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child, View target, int dx, int dy, int[] consumed) {
+        if (dy < 0) {
+            showBottomNavigationView(child);
+        } else if (dy > 0) {
+            hideBottomNavigationView(child);
         }
     }
 
-    private void hideBottomNavView(BottomNavigationView child) {
-        child.animate().translationY(child.getHeight());
+    private void hideBottomNavigationView(BottomNavigationView view) {
+        view.animate().translationY(view.getHeight());
     }
 
-    private void showBottomNavView(BottomNavigationView child) {
-        child.animate().translationY(0);
+    private void showBottomNavigationView(BottomNavigationView view) {
+        view.animate().translationY(0);
     }
 }

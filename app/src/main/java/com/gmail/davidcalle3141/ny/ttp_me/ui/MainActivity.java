@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.gmail.davidcalle3141.ny.ttp_me.R;
 import com.gmail.davidcalle3141.ny.ttp_me.data.network.TwitterNetworkDataSource;
+import com.gmail.davidcalle3141.ny.ttp_me.utils.AppExecutors;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
@@ -19,10 +20,9 @@ import androidx.navigation.Navigation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.gmail.davidcalle3141.ny.ttp_me.R.id.bottom_navigation_view;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(bottom_navigation_view) BottomNavigationView navigationView;
+    @BindView(R.id.bottom_navigation_view) BottomNavigationView navigationView;
 
     private NavController navController;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -46,11 +46,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         navController = Navigation.findNavController(this,R.id.nav_host_fragment);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigationView.getLayoutParams();
-      //  layoutParams.setBehavior(new BottomNavBehaviour());
+        layoutParams.setBehavior(new BottomNavBehaviour());
     }
 
 

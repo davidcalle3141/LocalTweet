@@ -29,9 +29,11 @@ public class BottomNavBehaviour extends CoordinatorLayout.Behavior<BottomNavigat
     }
 
     @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child, View directTargetChild, View target, int nestedScrollAxes) {
-        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
+    public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull BottomNavigationView child, @NonNull View directTargetChild, @NonNull View target, int axes, int type) {
+         super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes, type);
+         return axes == ViewCompat.SCROLL_AXIS_VERTICAL;
     }
+    
 
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, BottomNavigationView child, View target, int dx, int dy, int[] consumed) {

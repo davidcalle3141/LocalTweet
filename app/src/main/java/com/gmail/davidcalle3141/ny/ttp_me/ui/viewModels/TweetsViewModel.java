@@ -51,9 +51,9 @@ public class TweetsViewModel extends ViewModel {
     }
 
     public void updateLocation(){
-        mRepo.fetchLocation();
+        mRepo.refreshLocation();
     }
-    public LiveData<LocationModel> getmLocation() {
+    public LiveData<LocationModel> getLocation() {
         return mLocation;
     }
 }

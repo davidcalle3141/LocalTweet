@@ -15,12 +15,15 @@ public class TweetRepo {
     private static TweetRepo sInstance;
     private final TwitterNetworkDataSource mTwitterNDS;
     private final AppExecutors mExecutors;
-    private final String count = "10";
+    private final String count = "30";
     private boolean mLocationInitialized;
+    private boolean mTweetsInitialized;
 
     private TweetRepo(TwitterNetworkDataSource twitterNetworkDataSource, AppExecutors executors){
         this.mExecutors = executors;
         this.mTwitterNDS = twitterNetworkDataSource;
+        mTweetsInitialized=false;
+        mLocationInitialized=false;
 
     }
 
@@ -39,9 +42,16 @@ public class TweetRepo {
         mTwitterNDS.fetchLocation();
     }
 
+    private void initializeTweets(String latitude,String longitude,String distance){
+        if(mTweetsInitialized) return;
+        mTweetsInitialized = true;
+        mTwitterNDS.fetchTweetByLocation(latitude,longitude,distance,count);
+
+    }
+
 
     public void fetchLocalTweets(String latitude,String longitude,String distance) {
-        mTwitterNDS.fetchTweetByLocation(latitude,longitude,distance,count);
+        initializeTweets( latitude, longitude, distance);
     }
     public void fetchTweetsByUser(String str_id){
         mTwitterNDS.fetchTweetsByUser(str_id,count);
@@ -49,7 +59,15 @@ public class TweetRepo {
     public void fetchTweetsByHashtag(String hashtag){
         mTwitterNDS.fetchTweetsByHashtag(hashtag,count);
     }
-    public void fetchLocation(){
+    public void refreshocation(){
+        mTwitterNDS.fetchLocation();
+    }
+    public void refreshTweets(String latitude,String longitude,String distance) {
+            mTwitterNDS.fetchTweetByLocation(latitude,longitude,distance,count);
+    }
+
+    public void refreshLocation(){
+        mTweetsInitialized=false;
         mTwitterNDS.fetchLocation();
     }
 

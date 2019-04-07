@@ -36,7 +36,7 @@ public class GroupRepo {
     }
 
     public void deleteGroup(Group group){
-        mGroupDao.delete(group);
+        mExecutors.diskIO().execute(()->mGroupDao.delete(group));
     }
     public void addGroup(Group group){
         mExecutors.diskIO().execute(()-> mGroupDao.insert(group));

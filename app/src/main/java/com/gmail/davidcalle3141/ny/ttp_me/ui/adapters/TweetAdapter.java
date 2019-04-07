@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
     private final TweetAdapterOnClickListener onTweetClickListener;
     private Context context;
-    protected List<Tweet> tweetList;
+    private List<Tweet> tweetList;
 
     public TweetAdapter(Context context, TweetAdapterOnClickListener listener){
         this.context = context;

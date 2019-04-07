@@ -37,6 +37,8 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
     private TweetsViewModel mTweetViewModel;
     private TweetsVMFactory mTweetVMFactory;
 
+    private boolean mCanSave = false;
+
     private GroupsViewModel mGroupsViewModel;
     private GroupsVMFactory mGroupsVMFactory;
 
@@ -72,7 +74,7 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
         mTweetVMFactory = InjectorUtils.provideTweetFactory(mContext);
         mTweetViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()), mTweetVMFactory).get(TweetsViewModel.class);
 
-        mGroupsVMFactory = InjectorUtils.provideGroupFactory(mContext);
+        mGroupsVMFactory = InjectorUtils.provideGroupFactory(mContext.getApplicationContext());
         mGroupsViewModel = ViewModelProviders.of(getActivity(),mGroupsVMFactory).get(GroupsViewModel.class);
 
         return view;
@@ -110,6 +112,7 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
     public boolean onQueryTextSubmit(String s) {
         mTweetViewModel.fetchTweetsByHashtag(s);
         mGroupsViewModel.setFocusedGroup(s);
+        mCanSave = true;
         return false;
     }
 

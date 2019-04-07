@@ -50,7 +50,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
         String tweet = tweetList.get(position).getText();
         String media = tweetList.get(position).getMedia_url_https();
         tweet = tweet.replace("&amp;","&");
-
         holder.screenName.setText(screenName);
         holder.name.setText(authorName);
         holder.tweet.setText(tweet);
@@ -60,6 +59,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
         if(media!= null){
             Picasso.get().load(media).into(holder.media);
             holder.media.setVisibility(View.VISIBLE);
+        } else{
+            holder.media.setVisibility(View.GONE);
         }
 
     }

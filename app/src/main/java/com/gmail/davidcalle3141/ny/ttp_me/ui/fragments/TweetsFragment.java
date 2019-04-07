@@ -135,7 +135,7 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
     private void populateUI(LocationModel locationModel) {
 
         mViewModel.fetchLocalTweets(locationModel.getLatitude(),locationModel.getLongitude(),locationModel.getDistance());
-        mViewModel.getTweetList().observe(this, tweets->{
+        mViewModel.getLocationTweets().observe(this, tweets->{
             if(tweets!=null){
                 tweetAdapter.addTweetList(tweets);
                 tweetAdapter.notifyDataSetChanged();

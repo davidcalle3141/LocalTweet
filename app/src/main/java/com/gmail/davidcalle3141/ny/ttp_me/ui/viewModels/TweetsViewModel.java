@@ -14,22 +14,26 @@ import androidx.lifecycle.ViewModel;
 public class TweetsViewModel extends ViewModel {
     private final TweetRepo mRepo;
     private MutableLiveData<User> mFocusedUser;
-    private LiveData<List<Tweet>> mTweetList;
+    private LiveData<List<Tweet>> mLocationTweetList;
+    private LiveData<List<Tweet>> mSearchTweetList;
     private LiveData<LocationModel> mLocation;
 
 
 
     public TweetsViewModel(TweetRepo mRepo) {
         this.mRepo = mRepo;
-        this.mTweetList = mRepo.getTweets();
+        this.mLocationTweetList = mRepo.getLocationTweets();
+        this.mSearchTweetList = mRepo.getSearchTweets();
         this.mFocusedUser = new MutableLiveData<>();
         this.mLocation = mRepo.getLocation();
     }
 
 
-    public LiveData<List<Tweet>> getTweetList(){
-        return  mTweetList;
+    public LiveData<List<Tweet>> getLocationTweets(){
+        return  mLocationTweetList;
     }
+    public LiveData<List<Tweet>> getSearchTweets(){
+        return mSearchTweetList;}
 
     public void fetchLocalTweets(String latitude, String longitude, String distance){
         mRepo.fetchLocalTweets(longitude,latitude,distance);
@@ -50,9 +54,7 @@ public class TweetsViewModel extends ViewModel {
         return mFocusedUser;
     }
 
-    public void updateLocation(){
-        mRepo.refreshLocation();
-    }
+    public void updateLocation(){mRepo.refreshLocation();}
     public LiveData<LocationModel> getLocation() {
         return mLocation;
     }

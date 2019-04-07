@@ -71,9 +71,14 @@ public class TweetRepo {
         mTwitterNDS.fetchLocation();
     }
 
-    public LiveData<List<Tweet>> getTweets(){
+    public LiveData<List<Tweet>> getLocationTweets(){
         return mTwitterNDS.getTweets();
     }
+
+    public LiveData<List<Tweet>> getSearchTweets(){
+        return mTwitterNDS.getSearchTweets();
+    }
+
 
     public LiveData<LocationModel> getLocation(){
         initializeLocation();

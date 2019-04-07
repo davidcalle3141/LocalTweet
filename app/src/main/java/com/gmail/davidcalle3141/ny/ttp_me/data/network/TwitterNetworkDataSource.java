@@ -26,6 +26,7 @@ public class TwitterNetworkDataSource {
     private static TwitterNetworkDataSource sInstance;
     private final Context mContext;
     private final MutableLiveData<List<Tweet>> mDownloadedTweets;
+    private final MutableLiveData<List<Tweet>> mDownloadedTweetsByHashtag;
     private final MutableLiveData<LocationModel> mLocation;
     private final AppExecutors mExecutors;
     private final NetworkUtils networkUtils;
@@ -36,6 +37,7 @@ public class TwitterNetworkDataSource {
         this.mContext = context;
         this.mExecutors = executors;
         this.mDownloadedTweets = new MutableLiveData<>();
+        this.mDownloadedTweetsByHashtag = new MutableLiveData<>();
         this.networkUtils = new NetworkUtils(context);
         this.mLocation = new MutableLiveData<>();
         this.mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mContext);
@@ -74,7 +76,7 @@ public class TwitterNetworkDataSource {
                 networkUtils.buildURLByHashtag(hashtag,maxResults);
                 twitterJSONData = networkUtils.getResponse();
                 twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData).getTweets();
-                mDownloadedTweets.postValue(twitterResponse);
+                mDownloadedTweetsByHashtag.postValue(twitterResponse);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -104,6 +106,9 @@ public class TwitterNetworkDataSource {
 
     public LiveData<List<Tweet>> getTweets(){
         return mDownloadedTweets;
+    }
+    public LiveData<List<Tweet>> getSearchTweets(){
+        return mDownloadedTweetsByHashtag;
     }
 
 

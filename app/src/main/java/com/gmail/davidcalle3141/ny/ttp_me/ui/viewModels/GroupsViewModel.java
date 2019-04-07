@@ -34,9 +34,10 @@ public class GroupsViewModel extends ViewModel {
         String date = df.format(Calendar.getInstance().getTime());
         mFocusedGroup.setValue(new Group(hashtag,date));
     }
-    public MutableLiveData<Group> getFocusedGroup(){
+    public LiveData<Group> getFocusedGroup(){
         return mFocusedGroup;
     }
+
     public void saveGroup(Group group){
         mRepo.addGroup(group);
     }

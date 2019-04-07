@@ -1,19 +1,17 @@
 package com.gmail.davidcalle3141.ny.ttp_me.ui.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +19,9 @@ import android.widget.SearchView;
 
 import com.gmail.davidcalle3141.ny.ttp_me.R;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.adapters.TweetAdapter;
+import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.GroupsViewModel;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.TweetsViewModel;
+import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.GroupsVMFactory;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.TweetsVMFactory;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.InjectorUtils;
 import com.google.android.material.button.MaterialButton;
@@ -33,8 +33,11 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
     private Context mContext;
     private View view;
     private TweetAdapter tweetAdapter;
-    private TweetsViewModel mViewModel;
-    private TweetsVMFactory mFactory;
+    private TweetsViewModel mTweetViewModel;
+    private TweetsVMFactory mTweetVMFactory;
+
+    private GroupsViewModel mGroupsViewModel;
+    private GroupsVMFactory mGroupsVMFactory;
 
     @BindView(R.id.search_fragment_search_bar)
     SearchView searchView;
@@ -63,21 +66,26 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
         tweetAdapter = new TweetAdapter(mContext,this);
         searchView.setOnQueryTextListener(this);
         recyclerView.setAdapter(tweetAdapter);
-        mFactory = InjectorUtils.provideTweetFactory(mContext);
-        mViewModel = ViewModelProviders.of(this,mFactory).get(TweetsViewModel.class);
-        mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()),mFactory).get(TweetsViewModel.class);
+
+
+        mTweetVMFactory = InjectorUtils.provideTweetFactory(mContext);
+        mTweetViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()), mTweetVMFactory).get(TweetsViewModel.class);
+
+        mGroupsVMFactory = InjectorUtils.provideGroupFactory(mContext);
+        mGroupsViewModel = ViewModelProviders.of(getActivity(),mGroupsVMFactory).get(GroupsViewModel.class);
+
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFactory = InjectorUtils.provideTweetFactory(Objects.requireNonNull(getActivity()));
+        mTweetVMFactory = InjectorUtils.provideTweetFactory(Objects.requireNonNull(getActivity()));
         populateUI();
     }
 
     private void populateUI() {
-        mViewModel.getSearchTweets().observe(this,tweetList -> {
+        mTweetViewModel.getSearchTweets().observe(this, tweetList -> {
             if(tweetList!=null&&tweetList.size()>0){
                 tweetAdapter.addTweetList(tweetList);
                 tweetAdapter.notifyDataSetChanged();
@@ -96,12 +104,21 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
 
     @Override
     public boolean onQueryTextSubmit(String s) {
-        mViewModel.fetchTweetsByHashtag(s);
+        mTweetViewModel.fetchTweetsByHashtag(s);
+        mGroupsViewModel.setFocusedGroup(s);
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String s) {
+        //TODO autocomplete or suggestions
         return false;
+    }
+
+    @OnClick(R.id.search_follow_button)
+    public void follow(View view) {
+        mGroupsViewModel.getFocusedGroup().observe(this, group -> {
+            mGroupsViewModel.saveGroup(group);
+        });
     }
 }

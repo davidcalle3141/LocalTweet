@@ -17,6 +17,7 @@ public class TweetsViewModel extends ViewModel {
     private LiveData<List<Tweet>> mLocationTweetList;
     private LiveData<List<Tweet>> mSearchTweetList;
     private LiveData<LocationModel> mLocation;
+    private String hashtag;
 
 
 
@@ -40,7 +41,9 @@ public class TweetsViewModel extends ViewModel {
     }
 
 
-    public void fetchTweetsByHashtag(String hashtag){
+    public void fetchTweetsByHashtag(String hashtag)
+    {
+        this.hashtag = hashtag;
         mRepo.fetchTweetsByHashtag(hashtag);
     }
 
@@ -57,5 +60,8 @@ public class TweetsViewModel extends ViewModel {
     public void updateLocation(){mRepo.refreshLocation();}
     public LiveData<LocationModel> getLocation() {
         return mLocation;
+    }
+    public String getHashtag(){
+        return hashtag;
     }
 }

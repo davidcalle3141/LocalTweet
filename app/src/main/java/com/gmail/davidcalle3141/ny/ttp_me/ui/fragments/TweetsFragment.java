@@ -114,7 +114,6 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        mViewModel = ViewModelProviders.of(this,mFactory).get(TweetsViewModel.class);
         mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()),mFactory).get(TweetsViewModel.class);
         mViewModel.getLocation().observe(this, locationModel -> {
             if(locationModel!=null){

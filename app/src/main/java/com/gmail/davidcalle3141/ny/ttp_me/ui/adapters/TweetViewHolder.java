@@ -15,41 +15,42 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TweetViewHolder extends RecyclerView.ViewHolder  {
-    @BindView(R.id.tweet_author_profile_pic) public CircleImageView profilePic;
-    @BindView(R.id.tweet_author_handle) public TextView screenName;
-    @BindView(R.id.tweet_author_name)   public TextView name;
-    @BindView(R.id.tweet_tweet) public TextView tweet;
-    @BindView(R.id.tweet_time_created)  public TextView timeCreated;
-    @BindView(R.id.tweet_media_image_or_gif) public ImageView media;
-    String userId;
-    private Boolean ProfileButtonsClickable =true;
-    private NavController navHostFragment;
+    @BindView(R.id.tweet_author_profile_pic) public CircleImageView mProfilePic;
+    @BindView(R.id.tweet_author_handle) public TextView mScreenName;
+    @BindView(R.id.tweet_author_name)   public TextView mName;
+    @BindView(R.id.tweet_tweet) public TextView mTweet;
+    @BindView(R.id.tweet_time_created)  public TextView mTimeCreated;
+    @BindView(R.id.tweet_media_image_or_gif) public ImageView mMedia;
+    String mUserID;
+    private Boolean mProfileButtonsClickable =true;
+    private NavController mNavHostFragment;
 
     public TweetViewHolder(View itemView, NavController navHostFragment){
         super(itemView);
         ButterKnife.bind(this,itemView);
-        this.navHostFragment = navHostFragment;
+        this.mNavHostFragment = navHostFragment;
     }
 
+    //disables onProfileClick and onName click when in the profileFragment
     public void disableButtons(){
-        ProfileButtonsClickable = false;
+        mProfileButtonsClickable = false;
     }
 
 
     @OnClick(R.id.tweet_author_profile_pic)
     public void onProfileClick(){
-        if(ProfileButtonsClickable){
+        if(mProfileButtonsClickable){
         Bundle bundle = new Bundle();
-        bundle.putString("user_id",userId);
-        navHostFragment.navigate(R.id.action_global_profileFragment,bundle);}
+        bundle.putString("user_id", mUserID);
+        mNavHostFragment.navigate(R.id.action_global_profileFragment,bundle);}
 
     }
     @OnClick(R.id.tweet_author_name)
     public void onNameClick(){
-        if(ProfileButtonsClickable){
+        if(mProfileButtonsClickable){
 
             Bundle bundle = new Bundle();
-        bundle.putString("user_id",userId);
-        navHostFragment.navigate(R.id.action_global_profileFragment,bundle);}
+        bundle.putString("user_id", mUserID);
+        mNavHostFragment.navigate(R.id.action_global_profileFragment,bundle);}
     }
 }

@@ -31,7 +31,7 @@ public class TwitterNetworkDataSource {
 
     private final MutableLiveData<LocationModel> mLocation;
     private final AppExecutors mExecutors;
-    private final NetworkUtils networkUtils;
+    private final NetworkUtils mNetworkUtils;
     private final FusedLocationProviderClient mFusedLocationClient;
 
 
@@ -41,7 +41,7 @@ public class TwitterNetworkDataSource {
         this.mDownloadedLocationTweets = new MutableLiveData<>();
         this.mDownloadedTweetsByHashtag = new MutableLiveData<>();
         this.mDownloadedUserTimeline = new MutableLiveData<>();
-        this.networkUtils = new NetworkUtils(context);
+        this.mNetworkUtils = new NetworkUtils(context);
         this.mLocation = new MutableLiveData<>();
         this.mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mContext);
 
@@ -62,8 +62,8 @@ public class TwitterNetworkDataSource {
             try {
                 List<Tweet> twitterResponse;
                 String twitterJSONData;
-                networkUtils.buildURLByLocation(latitude, longitude, distance, maxResults);
-                twitterJSONData = networkUtils.getResponse();
+                mNetworkUtils.buildURLByLocation(latitude, longitude, distance, maxResults);
+                twitterJSONData = mNetworkUtils.getResponse();
                 twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData).getTweets();
                 mDownloadedLocationTweets.postValue(twitterResponse);
 
@@ -78,8 +78,8 @@ public class TwitterNetworkDataSource {
             try {
                 List<Tweet> twitterResponse;
                 String twitterJSONData;
-                networkUtils.buildURLByHashtag(hashtag, maxResults);
-                twitterJSONData = networkUtils.getResponse();
+                mNetworkUtils.buildURLByHashtag(hashtag, maxResults);
+                twitterJSONData = mNetworkUtils.getResponse();
                 twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData).getTweets();
                 mDownloadedTweetsByHashtag.postValue(twitterResponse);
             } catch (Exception e) {
@@ -95,8 +95,8 @@ public class TwitterNetworkDataSource {
             try {
                 List<Tweet> twitterResponse;
                 String twitterJSONData;
-                networkUtils.buildURLByUserID(str_id, count);
-                twitterJSONData = networkUtils.getResponse();
+                mNetworkUtils.buildURLByUserID(str_id, count);
+                twitterJSONData = mNetworkUtils.getResponse();
                 twitterResponse = new TwitterJsonUtils().parseUserTimeline(twitterJSONData).getTweets();
                 mDownloadedUserTimeline.postValue(twitterResponse);
             } catch (Exception e) {
@@ -146,7 +146,7 @@ public class TwitterNetworkDataSource {
     private void fetchIPLocation() {
         mExecutors.networkIO().execute(() -> {
             try {
-                String response = networkUtils.getLocationViaIP();
+                String response = mNetworkUtils.getLocationViaIP();
                 LocationModel locationModel = new LocationModel(locationFromIP(response, "latitude"), locationFromIP(response, "longitude"), "20");
                 mLocation.postValue(locationModel);
             } catch (IOException e) {

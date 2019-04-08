@@ -34,8 +34,8 @@ import java.util.Objects;
 
 public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener{
     private Context mContext;
-    private View view;
-    private TweetAdapter tweetAdapter;
+    private View mView;
+    private TweetAdapter mTweetAdapter;
     private TweetsViewModel mTweetViewModel;
     private TweetsVMFactory mTweetVMFactory;
 
@@ -43,12 +43,12 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     private GroupsVMFactory mGroupsVMFactory;
 
     @BindView(R.id.search_fragment_search_bar)
-    SearchView searchView;
+    SearchView mSearchView;
     @BindView(R.id.Search_rv)
-    RecyclerView recyclerView;
+    RecyclerView mRecyclerView;
     @BindView(R.id.search_follow_button)
-    MaterialButton button;
-    private NavController navhostFragment;
+    MaterialButton mMaterialButton;
+    private NavController mNavHostFragment;
 
 
     public SearchFragment(){}
@@ -62,17 +62,17 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.fragment_search,container,false);
-        ButterKnife.bind(this,view);
+        this.mView = inflater.inflate(R.layout.fragment_search,container,false);
+        ButterKnife.bind(this, mView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        navhostFragment = NavHostFragment.findNavController(this);
+        mNavHostFragment = NavHostFragment.findNavController(this);
 
-        tweetAdapter = new TweetAdapter(mContext,navhostFragment);
-        searchView.setOnQueryTextListener(this);
-        recyclerView.setAdapter(tweetAdapter);
+        mTweetAdapter = new TweetAdapter(mContext, mNavHostFragment);
+        mSearchView.setOnQueryTextListener(this);
+        mRecyclerView.setAdapter(mTweetAdapter);
 
 
         mTweetVMFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
@@ -81,7 +81,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         mGroupsVMFactory = InjectorUtils.provideGroupFactory(mContext.getApplicationContext());
         mGroupsViewModel = ViewModelProviders.of(getActivity(),mGroupsVMFactory).get(GroupsViewModel.class);
 
-        return view;
+        return mView;
     }
 
     @Override
@@ -93,13 +93,13 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     private void populateUI() {
         mTweetViewModel.getSearchTweets().observe(this, tweetList -> {
             if(tweetList!=null&&tweetList.size()>0){
-                if(!mTweetViewModel.getHashtag().equals("")) searchView.setQueryHint(mTweetViewModel.getHashtag());
-                tweetAdapter.addTweetList(tweetList);
-                tweetAdapter.notifyDataSetChanged();
-                button.setVisibility(View.VISIBLE);
+                if(!mTweetViewModel.getHashtag().equals("")) mSearchView.setQueryHint(mTweetViewModel.getHashtag());
+                mTweetAdapter.addTweetList(tweetList);
+                mTweetAdapter.notifyDataSetChanged();
+                mMaterialButton.setVisibility(View.VISIBLE);
 
             }else{
-                button.setVisibility(View.INVISIBLE);
+                mMaterialButton.setVisibility(View.INVISIBLE);
             }
 
 

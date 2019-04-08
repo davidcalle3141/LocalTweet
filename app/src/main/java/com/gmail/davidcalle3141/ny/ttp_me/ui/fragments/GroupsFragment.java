@@ -38,7 +38,8 @@ public class GroupsFragment extends Fragment implements GroupAdapter.GroupAdapte
     private GroupsVMFactory groupsVMFactory;
     private NavController navhostFragment;
 
-    public GroupsFragment(){}
+    public GroupsFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,19 +47,17 @@ public class GroupsFragment extends Fragment implements GroupAdapter.GroupAdapte
         this.mContext = this.getContext();
 
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.fragment_groups,container,false);
-        ButterKnife.bind(this,view);
+        this.view = inflater.inflate(R.layout.fragment_groups, container, false);
+        ButterKnife.bind(this, view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-
-
         groupsVMFactory = InjectorUtils.provideGroupFactory(mContext.getApplicationContext());
-        groupsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()),groupsVMFactory).get(GroupsViewModel.class);
-        groupAdapter = new GroupAdapter(mContext,this,groupsViewModel);
+        groupsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()), groupsVMFactory).get(GroupsViewModel.class);
+        groupAdapter = new GroupAdapter(mContext, this, groupsViewModel);
         recyclerView.setAdapter(groupAdapter);
         navhostFragment = NavHostFragment.findNavController(this);
         return view;
@@ -73,8 +72,8 @@ public class GroupsFragment extends Fragment implements GroupAdapter.GroupAdapte
     }
 
     private void populateUI() {
-        groupsViewModel.getGroupList().observe(this,groups -> {
-            if(groups!= null){
+        groupsViewModel.getGroupList().observe(this, groups -> {
+            if (groups != null) {
                 groupAdapter.addGroups(groups);
                 groupAdapter.notifyDataSetChanged();
             }
@@ -83,10 +82,10 @@ public class GroupsFragment extends Fragment implements GroupAdapter.GroupAdapte
 
     @Override
     public void onItemClick(int position) {
-        Log.d("GroupFragment","clicked");
+        Log.d("GroupFragment", "clicked");
         Bundle bundle = new Bundle();
-        bundle.putString("hashtag",groupAdapter.getGroup(position).getHashtag());
-        navhostFragment.navigate(R.id.action_groupsFragment_to_groupDetailFragment,bundle);
+        bundle.putString("hashtag", groupAdapter.getGroup(position).getHashtag());
+        navhostFragment.navigate(R.id.action_groupsFragment_to_groupDetailFragment, bundle);
 
     }
 }

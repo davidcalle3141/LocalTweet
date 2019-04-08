@@ -37,18 +37,18 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
 
     private static final int REQUEST_LOCATION_PERMISSION = 1;
-    private View view;
+    private View mView;
     private Context mContext;
     private TweetsViewModel mViewModel;
     private TweetsVMFactory mFactory;
-    private NavController navHostFragment;
+    private NavController mNavHostFragment;
 
-    private TweetAdapter tweetAdapter;
+    private TweetAdapter mTweetAdapter;
 
     @BindView(R.id.tweets_rv)
-    RecyclerView recyclerView;
+    RecyclerView mRecyclerView;
     @BindView(R.id.tweet_fragment_swipe_to_refresh)
-    SwipeRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     public TweetsFragment() {
@@ -65,22 +65,21 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.fragment_tweets, container, false);
-        ButterKnife.bind(this, view);
+        this.mView = inflater.inflate(R.layout.fragment_tweets, container, false);
+        ButterKnife.bind(this, mView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        navHostFragment = NavHostFragment.findNavController(this);
-        tweetAdapter = new TweetAdapter(mContext, navHostFragment);
-        recyclerView.setAdapter(tweetAdapter);
-        swipeRefreshLayout.setOnRefreshListener(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mNavHostFragment = NavHostFragment.findNavController(this);
 
-
+        mTweetAdapter = new TweetAdapter(mContext, mNavHostFragment);
+        mRecyclerView.setAdapter(mTweetAdapter);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         mFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
-        return view;
+        return mView;
     }
 
-
+    //callback to location permission request
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -102,18 +101,18 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     private void populateUI(LocationModel locationModel) {
-
         mViewModel.fetchLocalTweets(locationModel.getLatitude(), locationModel.getLongitude(), locationModel.getDistance());
         mViewModel.getLocationTweets().observe(this, tweets -> {
             if (tweets != null) {
-                tweetAdapter.addTweetList(tweets);
-                tweetAdapter.notifyDataSetChanged();
+                mTweetAdapter.addTweetList(tweets);
+                mTweetAdapter.notifyDataSetChanged();
 
             }
         });
 
     }
 
+    //checks location permissions if not available or if denied finds location via IP
     private void checkPermission() {
         if (ActivityCompat.checkSelfPermission(mContext,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -131,10 +130,11 @@ public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
 
+    //on swipe to refresh location is refreshed
     @Override
     public void onRefresh() {
         mViewModel.updateLocation();
-        swipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.setRefreshing(false);
 
     }
 

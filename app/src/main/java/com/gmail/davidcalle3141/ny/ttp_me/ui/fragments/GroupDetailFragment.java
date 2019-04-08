@@ -13,7 +13,6 @@ import com.gmail.davidcalle3141.ny.ttp_me.ui.adapters.TweetAdapter;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.TweetsViewModel;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.TweetsVMFactory;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.InjectorUtils;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
@@ -33,7 +32,7 @@ import butterknife.OnClick;
 public class GroupDetailFragment extends Fragment {
 
     private Context mContext;
-    private View view;
+    private View mView;
     private TweetAdapter mTweetAdapter;
     private TweetsVMFactory mTweetVMFactory;
     private TweetsViewModel mTweetViewModel;
@@ -45,7 +44,7 @@ public class GroupDetailFragment extends Fragment {
     RecyclerView mRecyclerView;
     @BindView(R.id.group_detail_header_back_button)
     ImageButton mBackButton;
-    private NavController navhostFragment;
+    private NavController mNavHostFragment;
 
     public GroupDetailFragment() {
     }
@@ -54,18 +53,18 @@ public class GroupDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mContext = getContext();
-        this.view = inflater.inflate(R.layout.fragment_group_detail, container, false);
-        ButterKnife.bind(this, view);
-        navhostFragment = NavHostFragment.findNavController(this);
+        this.mView = inflater.inflate(R.layout.fragment_group_detail, container, false);
+        ButterKnife.bind(this, mView);
+        mNavHostFragment = NavHostFragment.findNavController(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(layoutManager);
-        mTweetAdapter = new TweetAdapter(mContext, navhostFragment);
+        mTweetAdapter = new TweetAdapter(mContext, mNavHostFragment);
         mRecyclerView.setAdapter(mTweetAdapter);
 
         mTweetVMFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
         mTweetViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()), mTweetVMFactory).get(TweetsViewModel.class);
-        return view;
+        return mView;
     }
 
     @Override
@@ -90,6 +89,6 @@ public class GroupDetailFragment extends Fragment {
 
     @OnClick(R.id.group_detail_header_back_button)
     public void onBackButtonPressed() {
-        navhostFragment.popBackStack();
+        mNavHostFragment.popBackStack();
     }
 }

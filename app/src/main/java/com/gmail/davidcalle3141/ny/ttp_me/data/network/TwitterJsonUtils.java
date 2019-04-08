@@ -9,70 +9,70 @@ import org.json.JSONObject;
 
 
 public class TwitterJsonUtils {
-    private User user;
-    private Tweet tweet;
-    private TwitterResponse twitterResponse;
-    private JSONObject results;
-    private JSONArray resultsJSONArray;
-    private JSONObject tempObject;
-    private JSONObject nestedObject;
+    private User mUser;
+    private Tweet mTweet;
+    private TwitterResponse mTwitterResponse;
+    private JSONObject mResults;
+    private JSONArray mResultsJSONArray;
+    private JSONObject mTempObject;
+    private JSONObject mNestedObject;
 
     public TwitterResponse parseTwitterJson(String twitterJSONData) throws JSONException {
-        twitterResponse = new TwitterResponse();
-        results = new JSONObject(twitterJSONData);
-        if (results.length() == 0) return new TwitterResponse();
-        twitterResponse.setNext(results.getString("next"));
-        resultsJSONArray = results.getJSONArray("results");
-        for(int i=0;i< resultsJSONArray.length();i++){
-            tweet = parseTweet(i);
-            user = parseUser(i);
-            twitterResponse.addTweet(tweet,user);
+        mTwitterResponse = new TwitterResponse();
+        mResults = new JSONObject(twitterJSONData);
+        if (mResults.length() == 0) return new TwitterResponse();
+        mTwitterResponse.setNext(mResults.getString("next"));
+        mResultsJSONArray = mResults.getJSONArray("mResults");
+        for(int i = 0; i< mResultsJSONArray.length(); i++){
+            mTweet = parseTweet(i);
+            mUser = parseUser(i);
+            mTwitterResponse.addTweet(mTweet, mUser);
         }
-        return twitterResponse;
+        return mTwitterResponse;
     }
 
     public TwitterResponse parseUserTimeline(String twitterJSONData) throws JSONException {
-        twitterResponse = new TwitterResponse();
-        resultsJSONArray = new JSONArray(twitterJSONData);
-        for(int i =0; i<resultsJSONArray.length();i++){
-            tweet = parseTweet(i);
-            user = parseUser(i);
-            twitterResponse.addTweet(tweet,user);
+        mTwitterResponse = new TwitterResponse();
+        mResultsJSONArray = new JSONArray(twitterJSONData);
+        for(int i = 0; i< mResultsJSONArray.length(); i++){
+            mTweet = parseTweet(i);
+            mUser = parseUser(i);
+            mTwitterResponse.addTweet(mTweet, mUser);
         }
-        return twitterResponse;
+        return mTwitterResponse;
     }
 
 
     private User parseUser(int index) throws JSONException {
-        tempObject = resultsJSONArray.getJSONObject(index);
-        nestedObject = tempObject.getJSONObject("user");
-        String id_str = nestedObject.getString("id_str");
-        String name = nestedObject.getString("name");
-        String screen_name = nestedObject.getString("screen_name");
-        String profile_image_url = nestedObject.getString("profile_image_url");
-        String profile_image_url_http = nestedObject.getString("profile_image_url_https");
-        String friends_count = nestedObject.getString("friends_count");
-        String followers_count = nestedObject.getString("followers_count");
-        String location = nestedObject.getString("location");
+        mTempObject = mResultsJSONArray.getJSONObject(index);
+        mNestedObject = mTempObject.getJSONObject("mUser");
+        String id_str = mNestedObject.getString("id_str");
+        String name = mNestedObject.getString("mName");
+        String screen_name = mNestedObject.getString("screen_name");
+        String profile_image_url = mNestedObject.getString("profile_image_url");
+        String profile_image_url_http = mNestedObject.getString("profile_image_url_https");
+        String friends_count = mNestedObject.getString("friends_count");
+        String followers_count = mNestedObject.getString("followers_count");
+        String location = mNestedObject.getString("location");
 
         return new User(id_str,name,screen_name,location,profile_image_url,profile_image_url_http,friends_count,followers_count);
 
     }
 
     private Tweet parseTweet(int index) throws JSONException {
-        tempObject = resultsJSONArray.getJSONObject(index);
+        mTempObject = mResultsJSONArray.getJSONObject(index);
         String media_url_https = null;
-        String id_str = tempObject.getString("id_str");
-        String created_at = tempObject.getString("created_at");
-        String text = tempObject.getString("text");
-        nestedObject = tempObject.getJSONObject("entities");
-        if(nestedObject.has("media")){
-            media_url_https = nestedObject.getJSONArray("media").getJSONObject(0).get("media_url_https").toString();
+        String id_str = mTempObject.getString("id_str");
+        String created_at = mTempObject.getString("created_at");
+        String text = mTempObject.getString("text");
+        mNestedObject = mTempObject.getJSONObject("entities");
+        if(mNestedObject.has("mMedia")){
+            media_url_https = mNestedObject.getJSONArray("mMedia").getJSONObject(0).get("media_url_https").toString();
         }
-        if(tempObject.has("extended_tweet")){
-        tempObject = tempObject.getJSONObject("extended_tweet");
-        if(tempObject.has("full_text")){
-            text = tempObject.getString("full_text");
+        if(mTempObject.has("extended_tweet")){
+        mTempObject = mTempObject.getJSONObject("extended_tweet");
+        if(mTempObject.has("full_text")){
+            text = mTempObject.getString("full_text");
         }}
 
         return new Tweet(id_str,created_at,text, media_url_https);

@@ -43,20 +43,20 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TweetViewHolder holder, int position) {
         String profilePic;
-        holder.screenName.setText(tweetList.get(position).getUser().getScreen_name());
-        holder.name.setText(tweetList.get(position).getUser().getName());
-        holder.tweet.setText(tweetList.get(position).getText());
-        holder.timeCreated.setText(tweetList.get(position).getCreated_at());
+        holder.mScreenName.setText(tweetList.get(position).getUser().getScreen_name());
+        holder.mName.setText(tweetList.get(position).getUser().getName());
+        holder.mTweet.setText(tweetList.get(position).getText());
+        holder.mTimeCreated.setText(tweetList.get(position).getCreated_at());
         profilePic = tweetList.get(position).getUser().getProfile_image_url_https()
                 .replace("_normal", "");
-        Picasso.get().load(profilePic).into(holder.profilePic);
+        Picasso.get().load(profilePic).into(holder.mProfilePic);
         if (tweetList.get(position).getMedia_url_https() != null) {
-            Picasso.get().load(tweetList.get(position).getMedia_url_https()).into(holder.media);
-            holder.media.setVisibility(View.VISIBLE);
+            Picasso.get().load(tweetList.get(position).getMedia_url_https()).into(holder.mMedia);
+            holder.mMedia.setVisibility(View.VISIBLE);
         } else {
-            holder.media.setVisibility(View.GONE);
+            holder.mMedia.setVisibility(View.GONE);
         }
-        holder.userId = tweetList.get(position).getUser().getId_str();
+        holder.mUserID = tweetList.get(position).getUser().getId_str();
         if (!profileButtonClickable) holder.disableButtons();
     }
 

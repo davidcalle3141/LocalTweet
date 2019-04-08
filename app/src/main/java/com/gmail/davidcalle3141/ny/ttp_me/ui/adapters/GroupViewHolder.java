@@ -14,31 +14,31 @@ import butterknife.OnClick;
 
 public class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     @BindView(R.id.group_view_name)
-    TextView name;
+    TextView mName;
     @BindView(R.id.gourp_view_date)
-    TextView date;
-    Group group;
-    private GroupsViewModel groupsViewModel;
+    TextView mDate;
+    Group mGroup;
+    private GroupsViewModel mGroupViewModel;
 
-    private GroupAdapter.GroupAdapterOnClickListener groupAdapterOnClickListener;
+    private GroupAdapter.GroupAdapterOnClickListener mGroupAdapterOnClickListener;
 
     public GroupViewHolder(View itemView, GroupAdapter.GroupAdapterOnClickListener listener, GroupsViewModel groupsViewModel){
         super(itemView);
         ButterKnife.bind(this,itemView);
         itemView.setOnClickListener(this);
-        this.groupsViewModel = groupsViewModel;
-        this.groupAdapterOnClickListener = listener;
+        this.mGroupViewModel = groupsViewModel;
+        this.mGroupAdapterOnClickListener = listener;
     }
 
     @Override
     public void onClick(View view) {
-        if(groupAdapterOnClickListener != null){
-            groupAdapterOnClickListener.onItemClick(getAdapterPosition());
+        if(mGroupAdapterOnClickListener != null){
+            mGroupAdapterOnClickListener.onItemClick(getAdapterPosition());
         }
 
     }
     @OnClick(R.id.group_view_button)
-    public void unfollow(View view) {
-        groupsViewModel.deleteGroup(group);
+    public void unFollow(View view) {
+        mGroupViewModel.deleteGroup(mGroup);
     }
 }

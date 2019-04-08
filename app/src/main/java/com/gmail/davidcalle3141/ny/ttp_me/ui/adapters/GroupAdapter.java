@@ -16,44 +16,44 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
-    private final GroupAdapterOnClickListener onGroupClickListener;
-    private Context context;
-    private GroupsViewModel groupsViewModel;
-    private List<Group> groupList;
+    private final GroupAdapterOnClickListener mOnGroupClickListener;
+    private Context mContext;
+    private GroupsViewModel mGroupsViewModel;
+    private List<Group> mGroupList;
 
     public GroupAdapter(Context context, GroupAdapterOnClickListener listener, GroupsViewModel groupsViewModel){
-        this.groupsViewModel = groupsViewModel;
-        this.context = context;
-        this.onGroupClickListener = listener;
-        groupList = new ArrayList<>();
+        this.mGroupsViewModel = groupsViewModel;
+        this.mContext = context;
+        this.mOnGroupClickListener = listener;
+        mGroupList = new ArrayList<>();
     }
     public void addGroups(List<Group> groups){
-        this.groupList.clear();
-        this.groupList.addAll(groups);
+        this.mGroupList.clear();
+        this.mGroupList.addAll(groups);
     }
 
     public Group getGroup(int index){
-        return groupList.get(index);
+        return mGroupList.get(index);
     }
 
     @NonNull
     @Override
     public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_view,parent,false);
-        return new GroupViewHolder(view, onGroupClickListener,groupsViewModel);
+        return new GroupViewHolder(view, mOnGroupClickListener, mGroupsViewModel);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
-        holder.group = groupList.get(position);
-        holder.name.setText(groupList.get(position).getHashtag());
-        holder.date.setText(groupList.get(position).getDate_created());
+        holder.mGroup = mGroupList.get(position);
+        holder.mName.setText(mGroupList.get(position).getHashtag());
+        holder.mDate.setText(mGroupList.get(position).getDate_created());
 
     }
 
     @Override
     public int getItemCount() {
-        return groupList.size();
+        return mGroupList.size();
     }
 
 

@@ -26,13 +26,6 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_groupsFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -54,27 +47,38 @@
         app:destination="@id/tweetsFragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
+        app:launchSingleTop="true"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@+id/tweetsFragment"
+        app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_global_searchFragment"
         app:destination="@id/searchFragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
+        app:launchSingleTop="true"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@+id/searchFragment"
+        app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_global_groupsFragment"
         app:destination="@id/groupsFragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
+        app:launchSingleTop="true"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@+id/groupsFragment"
+        app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
+        app:launchSingleTop="true"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpToInclusive="false" />
 </navigation>

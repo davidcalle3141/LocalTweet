@@ -22,7 +22,7 @@ public class TwitterJsonUtils {
         mResults = new JSONObject(twitterJSONData);
         if (mResults.length() == 0) return new TwitterResponse();
         mTwitterResponse.setNext(mResults.getString("next"));
-        mResultsJSONArray = mResults.getJSONArray("mResults");
+        mResultsJSONArray = mResults.getJSONArray("results");
         for(int i = 0; i< mResultsJSONArray.length(); i++){
             mTweet = parseTweet(i);
             mUser = parseUser(i);
@@ -45,9 +45,9 @@ public class TwitterJsonUtils {
 
     private User parseUser(int index) throws JSONException {
         mTempObject = mResultsJSONArray.getJSONObject(index);
-        mNestedObject = mTempObject.getJSONObject("mUser");
+        mNestedObject = mTempObject.getJSONObject("user");
         String id_str = mNestedObject.getString("id_str");
-        String name = mNestedObject.getString("mName");
+        String name = mNestedObject.getString("name");
         String screen_name = mNestedObject.getString("screen_name");
         String profile_image_url = mNestedObject.getString("profile_image_url");
         String profile_image_url_http = mNestedObject.getString("profile_image_url_https");
@@ -66,8 +66,8 @@ public class TwitterJsonUtils {
         String created_at = mTempObject.getString("created_at");
         String text = mTempObject.getString("text");
         mNestedObject = mTempObject.getJSONObject("entities");
-        if(mNestedObject.has("mMedia")){
-            media_url_https = mNestedObject.getJSONArray("mMedia").getJSONObject(0).get("media_url_https").toString();
+        if(mNestedObject.has("media")){
+            media_url_https = mNestedObject.getJSONArray("media").getJSONObject(0).get("media_url_https").toString();
         }
         if(mTempObject.has("extended_tweet")){
         mTempObject = mTempObject.getJSONObject("extended_tweet");

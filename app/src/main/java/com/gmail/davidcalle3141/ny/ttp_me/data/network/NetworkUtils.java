@@ -24,9 +24,9 @@ import java.io.IOException;
     private final String BASE_URL = "api.twitter.com";
     private final String QUERY_BASE_URL = "https://api.twitter.com/1.1/tweets/search/30day/TPPMEE.json";
     private final String USER_TIMELINE_BASE_URL = "https://api.twitter.com/1.1/statuses/user_timeline.json";
+    private final Context mContext;
     private OkHttpClient client = new OkHttpClient();
     private HttpUrl.Builder urlBuilder;
-    private final Context mContext;
 
 
 

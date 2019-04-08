@@ -35,22 +35,14 @@ import com.squareup.okhttp.OkHttpClient;
 import java.util.Objects;
 
 
-public class TweetsFragment extends Fragment implements  SwipeRefreshLayout.OnRefreshListener {
+public class TweetsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
-    private static final int REQUEST_LOCATION_PERMISSION = 1 ;
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
     private View view;
     private Context mContext;
-    private Location mLastLocation;
-    private FusedLocationProviderClient mFusedLocationClient;
-    private OkHttpClient client = new OkHttpClient();
     private TweetsViewModel mViewModel;
     private TweetsVMFactory mFactory;
-    private String longitude;
-    private String latittude;
-    private String distance;
-    private String TAG = "TweetFragment";
-    private Boolean mPermissionNeeded=false;
     private NavController navHostFragment;
 
     private TweetAdapter tweetAdapter;
@@ -75,8 +67,8 @@ public class TweetsFragment extends Fragment implements  SwipeRefreshLayout.OnRe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.fragment_tweets,container,false);
-        ButterKnife.bind(this,view);
+        this.view = inflater.inflate(R.layout.fragment_tweets, container, false);
+        ButterKnife.bind(this, view);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -91,13 +83,12 @@ public class TweetsFragment extends Fragment implements  SwipeRefreshLayout.OnRe
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()),mFactory).get(TweetsViewModel.class);
+        mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()), mFactory).get(TweetsViewModel.class);
         mViewModel.getLocation().observe(this, locationModel -> {
-            if(locationModel!=null){
+            if (locationModel != null) {
                 populateUI(locationModel);
             }
         });
@@ -114,9 +105,9 @@ public class TweetsFragment extends Fragment implements  SwipeRefreshLayout.OnRe
 
     private void populateUI(LocationModel locationModel) {
 
-        mViewModel.fetchLocalTweets(locationModel.getLatitude(),locationModel.getLongitude(),locationModel.getDistance());
-        mViewModel.getLocationTweets().observe(this, tweets->{
-            if(tweets!=null){
+        mViewModel.fetchLocalTweets(locationModel.getLatitude(), locationModel.getLongitude(), locationModel.getDistance());
+        mViewModel.getLocationTweets().observe(this, tweets -> {
+            if (tweets != null) {
                 tweetAdapter.addTweetList(tweets);
                 tweetAdapter.notifyDataSetChanged();
 
@@ -129,12 +120,12 @@ public class TweetsFragment extends Fragment implements  SwipeRefreshLayout.OnRe
         if (ActivityCompat.checkSelfPermission(mContext,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_LOCATION_PERMISSION);
-        }else{
-            mViewModel = ViewModelProviders.of(this,mFactory).get(TweetsViewModel.class);
-            mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()),mFactory).get(TweetsViewModel.class);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+        } else {
+            mViewModel = ViewModelProviders.of(this, mFactory).get(TweetsViewModel.class);
+            mViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()), mFactory).get(TweetsViewModel.class);
             mViewModel.getLocation().observe(this, locationModel -> {
-                if(locationModel!=null){
+                if (locationModel != null) {
                     populateUI(locationModel);
                 }
             });

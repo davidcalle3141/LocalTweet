@@ -2,19 +2,6 @@ package com.gmail.davidcalle3141.ny.ttp_me.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +15,18 @@ import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.Tweet
 import com.gmail.davidcalle3141.ny.ttp_me.utils.InjectorUtils;
 
 import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class GroupDetailFragment extends Fragment {
@@ -46,23 +45,24 @@ public class GroupDetailFragment extends Fragment {
     ImageButton mBackButton;
     private NavController navhostFragment;
 
-    public GroupDetailFragment(){}
+    public GroupDetailFragment() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.mContext = getContext();
-        this.view = inflater.inflate(R.layout.fragment_group_detail,container,false);
-        ButterKnife.bind(this,view);
+        this.view = inflater.inflate(R.layout.fragment_group_detail, container, false);
+        ButterKnife.bind(this, view);
         navhostFragment = NavHostFragment.findNavController(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(layoutManager);
-        mTweetAdapter = new TweetAdapter(mContext,navhostFragment);
+        mTweetAdapter = new TweetAdapter(mContext, navhostFragment);
         mRecyclerView.setAdapter(mTweetAdapter);
 
         mTweetVMFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
-        mTweetViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()),mTweetVMFactory).get(TweetsViewModel.class);
+        mTweetViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()), mTweetVMFactory).get(TweetsViewModel.class);
 
         return view;
     }
@@ -79,7 +79,7 @@ public class GroupDetailFragment extends Fragment {
         mHeaderTextView.setText(hashTag);
         mTweetViewModel.fetchTweetsByHashtag(hashTag);
         mTweetViewModel.getSearchTweets().observe(this, tweetList -> {
-            if(tweetList!=null){
+            if (tweetList != null) {
                 mTweetAdapter.addTweetList(tweetList);
                 mTweetAdapter.notifyDataSetChanged();
             }
@@ -88,7 +88,7 @@ public class GroupDetailFragment extends Fragment {
 
 
     @OnClick(R.id.group_detail_header_back_button)
-    public void onBackButtonPressed(){
+    public void onBackButtonPressed() {
         navhostFragment.popBackStack();
     }
 }

@@ -35,7 +35,7 @@ public class TwitterNetworkDataSource {
     private final FusedLocationProviderClient mFusedLocationClient;
 
 
-    public TwitterNetworkDataSource(Context context, AppExecutors executors){
+    public TwitterNetworkDataSource(Context context, AppExecutors executors) {
         this.mContext = context;
         this.mExecutors = executors;
         this.mDownloadedLocationTweets = new MutableLiveData<>();
@@ -47,56 +47,59 @@ public class TwitterNetworkDataSource {
 
     }
 
-    public static TwitterNetworkDataSource getInstance(Context context, AppExecutors executors){
-        if(sInstance == null){
-            synchronized (LOCK){
-                sInstance = new TwitterNetworkDataSource(context.getApplicationContext(),executors);
+    public static TwitterNetworkDataSource getInstance(Context context, AppExecutors executors) {
+        if (sInstance == null) {
+            synchronized (LOCK) {
+                sInstance = new TwitterNetworkDataSource(context.getApplicationContext(), executors);
 
             }
         }
         return sInstance;
     }
-    public void fetchTweetByLocation(String latitude, String longitude, String distance, String maxResults){
-        mExecutors.networkIO().execute(()->{
-            try{
+
+    public void fetchTweetByLocation(String latitude, String longitude, String distance, String maxResults) {
+        mExecutors.networkIO().execute(() -> {
+            try {
                 List<Tweet> twitterResponse;
                 String twitterJSONData;
-                networkUtils.buildURLByLocation(latitude,longitude,distance,maxResults);
+                networkUtils.buildURLByLocation(latitude, longitude, distance, maxResults);
                 twitterJSONData = networkUtils.getResponse();
                 twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData).getTweets();
                 mDownloadedLocationTweets.postValue(twitterResponse);
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
     }
-    public void fetchTweetsByHashtag(String hashtag,String maxResults){
-        mExecutors.networkIO().execute(()->{
-            try{
+
+    public void fetchTweetsByHashtag(String hashtag, String maxResults) {
+        mExecutors.networkIO().execute(() -> {
+            try {
                 List<Tweet> twitterResponse;
                 String twitterJSONData;
-                networkUtils.buildURLByHashtag(hashtag,maxResults);
+                networkUtils.buildURLByHashtag(hashtag, maxResults);
                 twitterJSONData = networkUtils.getResponse();
                 twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData).getTweets();
                 mDownloadedTweetsByHashtag.postValue(twitterResponse);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
 
     }
-    public void fetchTweetsByUser(String str_id,String count){
-        mExecutors.networkIO().execute(()->{
-            try{
+
+    public void fetchTweetsByUser(String str_id, String count) {
+        mExecutors.networkIO().execute(() -> {
+            try {
                 List<Tweet> twitterResponse;
                 String twitterJSONData;
-                networkUtils.buildURLByUserID(str_id,count);
+                networkUtils.buildURLByUserID(str_id, count);
                 twitterJSONData = networkUtils.getResponse();
                 twitterResponse = new TwitterJsonUtils().parseUserTimeline(twitterJSONData).getTweets();
                 mDownloadedUserTimeline.postValue(twitterResponse);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -104,47 +107,47 @@ public class TwitterNetworkDataSource {
     }
 
 
-
-
-
-    public LiveData<List<Tweet>> getTweets(){
+    public LiveData<List<Tweet>> getTweets() {
         return mDownloadedLocationTweets;
     }
-    public LiveData<List<Tweet>> getSearchTweets(){
+
+    public LiveData<List<Tweet>> getSearchTweets() {
         return mDownloadedTweetsByHashtag;
     }
-    public LiveData<List<Tweet>> getUserTimeline(){return mDownloadedUserTimeline;}
+
+    public LiveData<List<Tweet>> getUserTimeline() {
+        return mDownloadedUserTimeline;
+    }
 
 
-
-    public void fetchLocation(){
+    public void fetchLocation() {
         if (ActivityCompat.checkSelfPermission(mContext,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mFusedLocationClient.getLastLocation().addOnSuccessListener(
                     location -> {
-                        if(location != null){
-                            LocationModel tempLocationModel = new LocationModel(String.valueOf(location.getLatitude()),String.valueOf(location.getLongitude()),"5");
+                        if (location != null) {
+                            LocationModel tempLocationModel = new LocationModel(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()), "5");
                             mLocation.postValue(tempLocationModel);
-                        }else{
+                        } else {
                             fetchIPLocation();
                         }
 
                     }
             );
 
-        }else {
+        } else {
             fetchIPLocation();
         }
 
 
     }
 
-    private void fetchIPLocation(){
-        mExecutors.networkIO().execute(()->{
+    private void fetchIPLocation() {
+        mExecutors.networkIO().execute(() -> {
             try {
                 String response = networkUtils.getLocationViaIP();
-                LocationModel locationModel = new LocationModel(locationFromIP(response,"latitude"),locationFromIP(response,"longitude"),"20");
+                LocationModel locationModel = new LocationModel(locationFromIP(response, "latitude"), locationFromIP(response, "longitude"), "20");
                 mLocation.postValue(locationModel);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -157,7 +160,7 @@ public class TwitterNetworkDataSource {
         double answer = 0;
         try {
             JSONObject jsonObject = new JSONObject(string);
-            answer =  (double) jsonObject.get(label);
+            answer = (double) jsonObject.get(label);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -165,7 +168,7 @@ public class TwitterNetworkDataSource {
         return String.valueOf(answer);
     }
 
-    public LiveData<LocationModel> getLocation(){
+    public LiveData<LocationModel> getLocation() {
 
         return mLocation;
     }

@@ -8,21 +8,22 @@ import java.util.List;
 
 public class TwitterResponse {
     private final List<Tweet> mTweets;
-    private  String next;
+    private String next;
 
-    TwitterResponse(){
+    TwitterResponse() {
         mTweets = new ArrayList<>();
     }
 
-    public void addTweet(Tweet tweet, User user){
+    public void addTweet(Tweet tweet, User user) {
         mTweets.add(tweet);
         tweet.setUser(user);
     }
-    public void addTweet(Tweet tweet){
+
+    public void addTweet(Tweet tweet) {
         mTweets.add(tweet);
     }
 
-    public List<Tweet> getTweets(){
+    public List<Tweet> getTweets() {
         return mTweets;
     }
 

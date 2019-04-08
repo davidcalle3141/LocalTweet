@@ -20,7 +20,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
     private Context context;
     private List<Tweet> tweetList;
     private NavController navHostFragment;
-    private TweetViewHolder holder;
     private Boolean profileButtonClickable = true;
 
     public TweetAdapter(Context context, NavController navHostFragment) {
@@ -43,7 +42,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TweetViewHolder holder, int position) {
-        this.holder = holder;
         String profilePic;
         holder.screenName.setText(tweetList.get(position).getUser().getScreen_name());
         holder.name.setText(tweetList.get(position).getUser().getName());

@@ -22,7 +22,7 @@ public class TweetViewHolder extends RecyclerView.ViewHolder  {
     @BindView(R.id.tweet_time_created)  public TextView timeCreated;
     @BindView(R.id.tweet_media_image_or_gif) public ImageView media;
     String userId;
-    Boolean ProfileButtonsClickable =true;
+    private Boolean ProfileButtonsClickable =true;
     private NavController navHostFragment;
 
     public TweetViewHolder(View itemView, NavController navHostFragment){

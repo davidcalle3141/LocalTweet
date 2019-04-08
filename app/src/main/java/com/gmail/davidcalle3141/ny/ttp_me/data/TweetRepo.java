@@ -59,12 +59,7 @@ public class TweetRepo {
     public void fetchTweetsByHashtag(String hashtag){
         mTwitterNDS.fetchTweetsByHashtag(hashtag,count);
     }
-    public void refreshocation(){
-        mTwitterNDS.fetchLocation();
-    }
-    public void refreshTweets(String latitude,String longitude,String distance) {
-            mTwitterNDS.fetchTweetByLocation(latitude,longitude,distance,count);
-    }
+
 
     public void refreshLocation(){
         mTweetsInitialized=false;

@@ -8,20 +8,12 @@
         android:id="@+id/tweetsFragment"
         android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.TweetsFragment"
         android:label="fragment_tweets"
-        tools:layout="@layout/fragment_tweets" >
-        <action
-            android:id="@+id/action_tweetsFragment2_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_tweets" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/groupsFragment"
         android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.GroupsFragment"
@@ -29,10 +21,18 @@
         tools:layout="@layout/fragment_groups" >
         <action
             android:id="@+id/action_groupsFragment_to_groupDetailFragment"
-            app:destination="@id/groupDetailFragment" />
+            app:destination="@id/groupDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_groupsFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -44,12 +44,37 @@
         android:name="com.gmail.davidcalle3141.ny.ttp_me.ui.fragments.GroupDetailFragment"
         android:label="fragment_group_detail"
         tools:layout="@layout/fragment_group_detail" >
-        <action
-            android:id="@+id/action_groupDetailFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
         <argument
             android:name="groupHashtag"
             app:argType="string"
             android:defaultValue='""' />
-    </fragment><action android:id="@+id/action_global_tweetsFragment" app:destination="@id/tweetsFragment"/><action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"/><action android:id="@+id/action_global_groupsFragment" app:destination="@id/groupsFragment"/><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
+    </fragment>
+    <action
+        android:id="@+id/action_global_tweetsFragment"
+        app:destination="@id/tweetsFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    <action
+        android:id="@+id/action_global_searchFragment"
+        app:destination="@id/searchFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    <action
+        android:id="@+id/action_global_groupsFragment"
+        app:destination="@id/groupsFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 </navigation>

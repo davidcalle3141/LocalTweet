@@ -39,8 +39,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     private TweetsViewModel mTweetViewModel;
     private TweetsVMFactory mTweetVMFactory;
 
-    private boolean mCanSave = false;
-
     private GroupsViewModel mGroupsViewModel;
     private GroupsVMFactory mGroupsVMFactory;
 
@@ -113,7 +111,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     public boolean onQueryTextSubmit(String s) {
         mTweetViewModel.fetchTweetsByHashtag(s);
         mGroupsViewModel.setFocusedGroup(s);
-        mCanSave = true;
         return false;
     }
 
@@ -125,6 +122,8 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @OnClick(R.id.search_follow_button)
     public void follow(View view) {
-        mGroupsViewModel.getFocusedGroup().observe(this, group -> mGroupsViewModel.saveGroup(group));
+        mGroupsViewModel.getFocusedGroup().observe(this, group -> {
+            mGroupsViewModel.saveGroup(group);
+        });
     }
 }

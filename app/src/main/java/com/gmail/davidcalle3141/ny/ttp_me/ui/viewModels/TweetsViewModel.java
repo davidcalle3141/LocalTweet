@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModel;
 
 public class TweetsViewModel extends ViewModel {
     private final TweetRepo mRepo;
-    private MutableLiveData<User> mFocusedUser;
     private LiveData<List<Tweet>> mLocationTweetList;
     private LiveData<List<Tweet>> mSearchTweetList;
     private LiveData<List<Tweet>> mUserTimeline;
@@ -25,7 +24,6 @@ public class TweetsViewModel extends ViewModel {
         this.mRepo = mRepo;
         this.mLocationTweetList = mRepo.getLocationTweets();
         this.mSearchTweetList = mRepo.getSearchTweets();
-        this.mFocusedUser = new MutableLiveData<>();
         this.mUserTimeline = mRepo.getUserTimeline();
         this.mLocation = mRepo.getLocation();
     }
@@ -57,13 +55,6 @@ public class TweetsViewModel extends ViewModel {
         mRepo.fetchTweetsByUser(str_id);
     }
 
-    public void setFocusedUser(User user) {
-        mFocusedUser.postValue(user);
-    }
-
-    public LiveData<User> getFocusedUser() {
-        return mFocusedUser;
-    }
 
     public void updateLocation() {
         mRepo.refreshLocation();
@@ -76,5 +67,4 @@ public class TweetsViewModel extends ViewModel {
     public String getHashtag() {
         return hashtag;
     }
-
 }

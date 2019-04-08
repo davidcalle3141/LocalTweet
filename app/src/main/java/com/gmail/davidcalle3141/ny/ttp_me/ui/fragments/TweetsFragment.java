@@ -3,7 +3,6 @@ package com.gmail.davidcalle3141.ny.ttp_me.ui.fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,8 +28,7 @@ import com.gmail.davidcalle3141.ny.ttp_me.ui.adapters.TweetAdapter;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.TweetsViewModel;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.TweetsVMFactory;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.InjectorUtils;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.squareup.okhttp.OkHttpClient;
+
 
 import java.util.Objects;
 

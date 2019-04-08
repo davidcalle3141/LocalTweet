@@ -12,6 +12,7 @@ import com.gmail.davidcalle3141.ny.ttp_me.ui.adapters.GroupAdapter;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.GroupsViewModel;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.GroupsVMFactory;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.InjectorUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 

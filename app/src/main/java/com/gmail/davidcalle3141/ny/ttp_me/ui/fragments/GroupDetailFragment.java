@@ -13,6 +13,7 @@ import com.gmail.davidcalle3141.ny.ttp_me.ui.adapters.TweetAdapter;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.TweetsViewModel;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.TweetsVMFactory;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.InjectorUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
@@ -36,6 +37,7 @@ public class GroupDetailFragment extends Fragment {
     private TweetAdapter mTweetAdapter;
     private TweetsVMFactory mTweetVMFactory;
     private TweetsViewModel mTweetViewModel;
+
 
     @BindView(R.id.group_detail_header_text)
     TextView mHeaderTextView;
@@ -63,7 +65,6 @@ public class GroupDetailFragment extends Fragment {
 
         mTweetVMFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
         mTweetViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()), mTweetVMFactory).get(TweetsViewModel.class);
-
         return view;
     }
 

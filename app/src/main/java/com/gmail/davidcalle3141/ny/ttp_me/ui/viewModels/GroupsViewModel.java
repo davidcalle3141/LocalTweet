@@ -31,7 +31,7 @@ public class GroupsViewModel extends ViewModel {
     }
     public void setFocusedGroup(String hashtag){
         this.hashTag = hashtag;
-        DateFormat df = new SimpleDateFormat("dd MM yyyy, HH:mm", Locale.US);
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         String date = df.format(Calendar.getInstance().getTime());
         mFocusedGroup.setValue(new Group(hashtag,date));
     }

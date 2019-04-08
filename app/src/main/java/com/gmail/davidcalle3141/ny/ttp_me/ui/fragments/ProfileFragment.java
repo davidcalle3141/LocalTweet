@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,7 @@ public class ProfileFragment extends Fragment {
     TextView mHeaderLocation;
     @BindView(R.id.profile_header_screen_name)
     TextView mHeaderScreenName;
-    private NavController mNavhostFragment;
+    private NavController mNavHostFragment;
 
     public ProfileFragment() {
     }
@@ -63,12 +64,12 @@ public class ProfileFragment extends Fragment {
         this.mView = inflater.inflate(R.layout.fragment_profile, container, false);
         this.mContext = getContext();
         ButterKnife.bind(this, mView);
-        mNavhostFragment = NavHostFragment.findNavController(this);
+        mNavHostFragment = NavHostFragment.findNavController(this);
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mTweetAdapter = new TweetAdapter(mContext, mNavhostFragment);
+        mTweetAdapter = new TweetAdapter(mContext, mNavHostFragment);
         mRecyclerView.setAdapter(mTweetAdapter);
 
         mTweetsFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
@@ -110,5 +111,11 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+    }
+
+
+    @OnClick(R.id.profile_header_back_button)
+    public void onBackButtonPressed() {
+        mNavHostFragment.popBackStack();
     }
 }

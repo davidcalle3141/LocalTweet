@@ -23,6 +23,7 @@ public class TweetViewHolder extends RecyclerView.ViewHolder  {
     @BindView(R.id.tweet_time_created)  public TextView timeCreated;
     @BindView(R.id.tweet_media_image_or_gif) public ImageView media;
     String userId;
+    Boolean ProfileButtonsClickable =true;
     private NavController navHostFragment;
 
     public TweetViewHolder(View itemView, NavController navHostFragment){
@@ -31,18 +32,25 @@ public class TweetViewHolder extends RecyclerView.ViewHolder  {
         this.navHostFragment = navHostFragment;
     }
 
+    public void disableButtons(){
+        ProfileButtonsClickable = false;
+    }
+
 
     @OnClick(R.id.tweet_author_profile_pic)
     public void onProfileClick(){
+        if(ProfileButtonsClickable){
         Bundle bundle = new Bundle();
         bundle.putString("user_id",userId);
-        navHostFragment.navigate(R.id.action_global_profileFragment,bundle);
+        navHostFragment.navigate(R.id.action_global_profileFragment,bundle);}
 
     }
     @OnClick(R.id.tweet_author_name)
     public void onNameClick(){
-        Bundle bundle = new Bundle();
+        if(ProfileButtonsClickable){
+
+            Bundle bundle = new Bundle();
         bundle.putString("user_id",userId);
-        navHostFragment.navigate(R.id.action_global_profileFragment,bundle);
+        navHostFragment.navigate(R.id.action_global_profileFragment,bundle);}
     }
 }

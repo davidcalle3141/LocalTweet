@@ -25,6 +25,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
     private Context context;
     private List<Tweet> tweetList;
     private NavController navHostFragment;
+    private TweetViewHolder holder;
+    private Boolean profileButtonClickable = true;
 
     public TweetAdapter(Context context, NavController navHostFragment){
         this.context = context;
@@ -45,6 +47,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TweetViewHolder holder,int position){
+        this.holder = holder;
         String profilePic = tweetList.get(position).getUser().getProfile_image_url_https();
         String authorName = tweetList.get(position).getUser().getName();
         String screenName = tweetList.get(position).getUser().getScreen_name();
@@ -66,7 +69,11 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
         }
 
         holder.userId = tweetList.get(position).getUser().getId_str();
+        if(!profileButtonClickable) holder.disableButtons();
+    }
 
+    public void disableProfileButton(){
+        profileButtonClickable = false;
     }
 
     @Override

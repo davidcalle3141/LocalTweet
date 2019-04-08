@@ -38,7 +38,6 @@ public class ProfileFragment extends Fragment {
     private TweetAdapter mTweetAdapter;
     private TweetsViewModel mTweetsViewModel;
     private TweetsVMFactory mTweetsFactory;
-    private Boolean mHeaderInitialized = false;
 
     @BindView(R.id.profile_rv)
     RecyclerView mRecyclerView;
@@ -94,8 +93,10 @@ public class ProfileFragment extends Fragment {
         mTweetsViewModel.getUserTimeline().observe(this, tweetList -> {
             User user;
             if (tweetList != null) {
+                mTweetAdapter.disableProfileButton();
                 mTweetAdapter.addTweetList(tweetList);
                 mTweetAdapter.notifyDataSetChanged();
+
                 user = tweetList.get(0).getUser();
                 String profilePic = user.getProfile_image_url_https();
                 profilePic = profilePic.replace("_normal", "");

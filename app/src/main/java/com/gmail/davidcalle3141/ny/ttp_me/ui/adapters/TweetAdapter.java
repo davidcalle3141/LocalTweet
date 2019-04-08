@@ -48,26 +48,20 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TweetViewHolder holder,int position){
         this.holder = holder;
-        String profilePic = tweetList.get(position).getUser().getProfile_image_url_https();
-        String authorName = tweetList.get(position).getUser().getName();
-        String screenName = tweetList.get(position).getUser().getScreen_name();
-        String timeSincePosted = tweetList.get(position).getCreated_at();
-        String tweet = tweetList.get(position).getText();
-        String media = tweetList.get(position).getMedia_url_https();
-        tweet = tweet.replace("&amp;","&");
-        holder.screenName.setText(screenName);
-        holder.name.setText(authorName);
-        holder.tweet.setText(tweet);
-        holder.timeCreated.setText(timeSincePosted);
-        profilePic = profilePic.replace("_normal","");
+        String profilePic;
+        holder.screenName.setText(tweetList.get(position).getUser().getScreen_name());
+        holder.name.setText(tweetList.get(position).getUser().getName());
+        holder.tweet.setText(tweetList.get(position).getText());
+        holder.timeCreated.setText(tweetList.get(position).getCreated_at());
+        profilePic = tweetList.get(position).getUser().getProfile_image_url_https()
+                .replace("_normal","");
         Picasso.get().load(profilePic).into(holder.profilePic);
-        if(media!= null){
-            Picasso.get().load(media).into(holder.media);
+        if( tweetList.get(position).getMedia_url_https()!= null){
+            Picasso.get().load( tweetList.get(position).getMedia_url_https()).into(holder.media);
             holder.media.setVisibility(View.VISIBLE);
         } else{
             holder.media.setVisibility(View.GONE);
         }
-
         holder.userId = tweetList.get(position).getUser().getId_str();
         if(!profileButtonClickable) holder.disableButtons();
     }

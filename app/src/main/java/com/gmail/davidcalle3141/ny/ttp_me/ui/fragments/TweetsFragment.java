@@ -14,6 +14,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -56,7 +58,7 @@ import java.util.Objects;
 import static android.content.Context.WIFI_SERVICE;
 
 
-public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapterOnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class TweetsFragment extends Fragment implements  SwipeRefreshLayout.OnRefreshListener {
 
 
     private static final int REQUEST_LOCATION_PERMISSION = 1 ;
@@ -72,6 +74,7 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
     private String distance;
     private String TAG = "TweetFragment";
     private Boolean mPermissionNeeded=false;
+    private NavController navHostFragment;
 
     private TweetAdapter tweetAdapter;
 
@@ -100,7 +103,8 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
-        tweetAdapter = new TweetAdapter(mContext,this);
+        navHostFragment = NavHostFragment.findNavController(this);
+        tweetAdapter = new TweetAdapter(mContext, navHostFragment);
         recyclerView.setAdapter(tweetAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -160,13 +164,6 @@ public class TweetsFragment extends Fragment implements TweetAdapter.TweetAdapte
         }
     }
 
-//TODO on swipe down listener to refresh
-
-
-    @Override
-    public void onItemClick(int position) {
-
-    }
 
     @Override
     public void onRefresh() {

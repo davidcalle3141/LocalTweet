@@ -14,7 +14,7 @@ public class User {
                 String profile_image_url,String profile_image_url_https,String friends_count,String followers_count){
         this.id_str = id_str;
         this.name = name;
-        this.screen_name = screen_name;
+        this.screen_name = "@"+screen_name;
         this.profile_image_url = profile_image_url;
         this.profile_image_url_https = profile_image_url_https;
         this.friends_count = friends_count;

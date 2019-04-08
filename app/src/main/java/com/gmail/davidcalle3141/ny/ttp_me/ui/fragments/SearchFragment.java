@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -30,7 +32,7 @@ import com.google.android.material.button.MaterialButton;
 import java.util.Objects;
 
 
-public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapterOnClickListener,SearchView.OnQueryTextListener{
+public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener{
     private Context mContext;
     private View view;
     private TweetAdapter tweetAdapter;
@@ -48,6 +50,7 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
     RecyclerView recyclerView;
     @BindView(R.id.search_follow_button)
     MaterialButton button;
+    private NavController navhostFragment;
 
 
     public SearchFragment(){}
@@ -66,7 +69,10 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
-        tweetAdapter = new TweetAdapter(mContext,this);
+
+        navhostFragment = NavHostFragment.findNavController(this);
+
+        tweetAdapter = new TweetAdapter(mContext,navhostFragment);
         searchView.setOnQueryTextListener(this);
         recyclerView.setAdapter(tweetAdapter);
 
@@ -104,11 +110,6 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
 
 
     @Override
-    public void onItemClick(int position) {
-
-    }
-
-    @Override
     public boolean onQueryTextSubmit(String s) {
         mTweetViewModel.fetchTweetsByHashtag(s);
         mGroupsViewModel.setFocusedGroup(s);
@@ -124,8 +125,6 @@ public class SearchFragment extends Fragment implements TweetAdapter.TweetAdapte
 
     @OnClick(R.id.search_follow_button)
     public void follow(View view) {
-        mGroupsViewModel.getFocusedGroup().observe(this, group -> {
-            mGroupsViewModel.saveGroup(group);
-        });
+        mGroupsViewModel.getFocusedGroup().observe(this, group -> mGroupsViewModel.saveGroup(group));
     }
 }

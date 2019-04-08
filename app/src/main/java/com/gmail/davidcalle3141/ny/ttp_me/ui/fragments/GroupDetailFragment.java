@@ -34,7 +34,7 @@ import com.gmail.davidcalle3141.ny.ttp_me.utils.InjectorUtils;
 import java.util.Objects;
 
 
-public class GroupDetailFragment extends Fragment implements TweetAdapter.TweetAdapterOnClickListener {
+public class GroupDetailFragment extends Fragment {
 
     private Context mContext;
     private View view;
@@ -58,16 +58,16 @@ public class GroupDetailFragment extends Fragment implements TweetAdapter.TweetA
         this.mContext = getContext();
         this.view = inflater.inflate(R.layout.fragment_group_detail,container,false);
         ButterKnife.bind(this,view);
+        navhostFragment = NavHostFragment.findNavController(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(layoutManager);
-        mTweetAdapter = new TweetAdapter(mContext,this);
+        mTweetAdapter = new TweetAdapter(mContext,navhostFragment);
         mRecyclerView.setAdapter(mTweetAdapter);
 
         mTweetVMFactory = InjectorUtils.provideTweetFactory(mContext.getApplicationContext());
         mTweetViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity()),mTweetVMFactory).get(TweetsViewModel.class);
 
-        navhostFragment = NavHostFragment.findNavController(this);
         return view;
     }
 
@@ -90,10 +90,7 @@ public class GroupDetailFragment extends Fragment implements TweetAdapter.TweetA
         });
     }
 
-    @Override
-    public void onItemClick(int position) {
 
-    }
     @OnClick(R.id.group_detail_header_back_button)
     public void onBackButtonPressed(){
         navhostFragment.popBackStack();

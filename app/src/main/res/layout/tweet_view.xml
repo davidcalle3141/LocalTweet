@@ -39,14 +39,14 @@
             />
         <TextView
             android:id="@+id/tweet_author_handle"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
             android:textSize="15sp"
             android:textColor="@color/colorGrey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="bottom"
-            app:layout_constraintStart_toEndOf="@id/tweet_author_name"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tweet_author_name"
+            app:layout_constraintStart_toEndOf="@id/tweet_author_profile_pic"
 
             />
 
@@ -55,6 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:gravity="start"
             app:layout_constraintStart_toEndOf="@+id/tweet_author_profile_pic"
             app:layout_constraintTop_toBottomOf="@id/tweet_tweet" />
@@ -82,7 +84,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/tweet_author_profile_pic"
-            app:layout_constraintTop_toBottomOf="@+id/tweet_author_name" />
+            app:layout_constraintTop_toBottomOf="@id/tweet_author_handle"
+             />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

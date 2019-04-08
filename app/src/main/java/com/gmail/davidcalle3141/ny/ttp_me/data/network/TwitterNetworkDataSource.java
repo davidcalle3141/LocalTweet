@@ -25,8 +25,10 @@ public class TwitterNetworkDataSource {
     private static final Object LOCK = new Object();
     private static TwitterNetworkDataSource sInstance;
     private final Context mContext;
-    private final MutableLiveData<List<Tweet>> mDownloadedTweets;
+    private final MutableLiveData<List<Tweet>> mDownloadedLocationTweets;
     private final MutableLiveData<List<Tweet>> mDownloadedTweetsByHashtag;
+    private final MutableLiveData<List<Tweet>> mDownloadedUserTimeline;
+
     private final MutableLiveData<LocationModel> mLocation;
     private final AppExecutors mExecutors;
     private final NetworkUtils networkUtils;
@@ -36,8 +38,9 @@ public class TwitterNetworkDataSource {
     public TwitterNetworkDataSource(Context context, AppExecutors executors){
         this.mContext = context;
         this.mExecutors = executors;
-        this.mDownloadedTweets = new MutableLiveData<>();
+        this.mDownloadedLocationTweets = new MutableLiveData<>();
         this.mDownloadedTweetsByHashtag = new MutableLiveData<>();
+        this.mDownloadedUserTimeline = new MutableLiveData<>();
         this.networkUtils = new NetworkUtils(context);
         this.mLocation = new MutableLiveData<>();
         this.mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mContext);
@@ -61,7 +64,7 @@ public class TwitterNetworkDataSource {
                 networkUtils.buildURLByLocation(latitude,longitude,distance,maxResults);
                 twitterJSONData = networkUtils.getResponse();
                 twitterResponse = new TwitterJsonUtils().parseTwitterJson(twitterJSONData).getTweets();
-                mDownloadedTweets.postValue(twitterResponse);
+                mDownloadedLocationTweets.postValue(twitterResponse);
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -92,7 +95,7 @@ public class TwitterNetworkDataSource {
                 networkUtils.buildURLByUserID(str_id,count);
                 twitterJSONData = networkUtils.getResponse();
                 twitterResponse = new TwitterJsonUtils().parseUserTimeline(twitterJSONData).getTweets();
-                mDownloadedTweets.postValue(twitterResponse);
+                mDownloadedUserTimeline.postValue(twitterResponse);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -105,11 +108,12 @@ public class TwitterNetworkDataSource {
 
 
     public LiveData<List<Tweet>> getTweets(){
-        return mDownloadedTweets;
+        return mDownloadedLocationTweets;
     }
     public LiveData<List<Tweet>> getSearchTweets(){
         return mDownloadedTweetsByHashtag;
     }
+    public LiveData<List<Tweet>> getUserTimeline(){return mDownloadedUserTimeline;}
 
 
 

@@ -17,16 +17,18 @@ import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
-    private final TweetAdapterOnClickListener onTweetClickListener;
     private Context context;
     private List<Tweet> tweetList;
+    private NavController navHostFragment;
 
-    public TweetAdapter(Context context, TweetAdapterOnClickListener listener){
+    public TweetAdapter(Context context, NavController navHostFragment){
         this.context = context;
-        this.onTweetClickListener = listener;
+        this.navHostFragment=navHostFragment;
         tweetList = new ArrayList<>();
     }
     public void addTweetList(List<Tweet> tweetList){
@@ -38,7 +40,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
     @Override
     public TweetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tweet_view,parent,false);
-        return new TweetViewHolder(view,onTweetClickListener);
+        return new TweetViewHolder(view,navHostFragment);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
         holder.name.setText(authorName);
         holder.tweet.setText(tweet);
         holder.timeCreated.setText(timeSincePosted);
-        profilePic = profilePic.replace("normal","bigger");
+        profilePic = profilePic.replace("_normal","");
         Picasso.get().load(profilePic).into(holder.profilePic);
         if(media!= null){
             Picasso.get().load(media).into(holder.media);
@@ -63,6 +65,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
             holder.media.setVisibility(View.GONE);
         }
 
+        holder.userId = tweetList.get(position).getUser().getId_str();
+
     }
 
     @Override
@@ -70,7 +74,4 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetViewHolder> {
         return tweetList.size();
     }
 
-    public interface TweetAdapterOnClickListener{
-        void onItemClick(int position);
-    }
 }

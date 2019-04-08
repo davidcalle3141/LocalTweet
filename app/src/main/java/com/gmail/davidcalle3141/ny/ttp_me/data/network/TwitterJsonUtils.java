@@ -36,7 +36,8 @@ public class TwitterJsonUtils {
         resultsJSONArray = new JSONArray(twitterJSONData);
         for(int i =0; i<resultsJSONArray.length();i++){
             tweet = parseTweet(i);
-            twitterResponse.addTweet(tweet);
+            user = parseUser(i);
+            twitterResponse.addTweet(tweet,user);
         }
         return twitterResponse;
     }

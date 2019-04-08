@@ -51,5 +51,5 @@
             android:name="groupHashtag"
             app:argType="string"
             android:defaultValue='""' />
-    </fragment><action android:id="@+id/action_global_tweetsFragment" app:destination="@id/tweetsFragment"/><action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"/><action android:id="@+id/action_global_groupsFragment" app:destination="@id/groupsFragment"/>
+    </fragment><action android:id="@+id/action_global_tweetsFragment" app:destination="@id/tweetsFragment"/><action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"/><action android:id="@+id/action_global_groupsFragment" app:destination="@id/groupsFragment"/><action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
 </navigation>

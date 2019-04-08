@@ -1,13 +1,10 @@
 package com.gmail.davidcalle3141.ny.ttp_me.ui.fragments;
 
 import android.content.Context;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -25,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.gmail.davidcalle3141.ny.ttp_me.R;
-import com.gmail.davidcalle3141.ny.ttp_me.data.Models.Tweet;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.adapters.TweetAdapter;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.TweetsViewModel;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.TweetsVMFactory;

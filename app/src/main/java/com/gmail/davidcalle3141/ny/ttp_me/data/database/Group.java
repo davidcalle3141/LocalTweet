@@ -2,7 +2,6 @@ package com.gmail.davidcalle3141.ny.ttp_me.data.database;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Group")

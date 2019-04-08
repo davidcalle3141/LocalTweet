@@ -4,15 +4,12 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -22,40 +19,20 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import android.text.format.Formatter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.Switch;
-import android.widget.Toast;
 
 import com.gmail.davidcalle3141.ny.ttp_me.R;
 import com.gmail.davidcalle3141.ny.ttp_me.data.Models.LocationModel;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.adapters.TweetAdapter;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.TweetsViewModel;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.TweetsVMFactory;
-import com.gmail.davidcalle3141.ny.ttp_me.utils.AppExecutors;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.InjectorUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
 import java.util.Objects;
-
-import static android.content.Context.WIFI_SERVICE;
 
 
 public class TweetsFragment extends Fragment implements  SwipeRefreshLayout.OnRefreshListener {

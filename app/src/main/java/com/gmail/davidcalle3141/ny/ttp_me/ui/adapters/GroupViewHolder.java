@@ -6,7 +6,6 @@ import android.widget.TextView;
 import com.gmail.davidcalle3141.ny.ttp_me.R;
 import com.gmail.davidcalle3141.ny.ttp_me.data.database.Group;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.GroupsViewModel;
-import com.google.android.material.button.MaterialButton;
 
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;

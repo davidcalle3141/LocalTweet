@@ -10,7 +10,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
 
 public class BottomNavBehaviour extends CoordinatorLayout.Behavior<BottomNavigationView> {
 

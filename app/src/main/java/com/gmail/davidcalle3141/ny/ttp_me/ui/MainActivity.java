@@ -1,20 +1,12 @@
 package com.gmail.davidcalle3141.ny.ttp_me.ui;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.gmail.davidcalle3141.ny.ttp_me.R;
-import com.gmail.davidcalle3141.ny.ttp_me.data.network.TwitterNetworkDataSource;
-import com.gmail.davidcalle3141.ny.ttp_me.utils.AppExecutors;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.IOException;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import butterknife.BindView;

@@ -1,7 +1,6 @@
 package com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels;
 
 import com.gmail.davidcalle3141.ny.ttp_me.data.GroupRepo;
-import com.gmail.davidcalle3141.ny.ttp_me.data.TweetRepo;
 import com.gmail.davidcalle3141.ny.ttp_me.data.database.Group;
 
 import java.text.DateFormat;

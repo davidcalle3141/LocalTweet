@@ -1,8 +1,6 @@
 package com.gmail.davidcalle3141.ny.ttp_me.ui.fragments;
 
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,14 +18,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.gmail.davidcalle3141.ny.ttp_me.R;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.adapters.GroupAdapter;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.GroupsViewModel;
-import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.TweetsViewModel;
 import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.GroupsVMFactory;
-import com.gmail.davidcalle3141.ny.ttp_me.ui.viewModels.ViewModelFactories.TweetsVMFactory;
 import com.gmail.davidcalle3141.ny.ttp_me.utils.InjectorUtils;
 
 import java.util.Objects;

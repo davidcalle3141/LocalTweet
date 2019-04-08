@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.gmail.davidcalle3141.ny.ttp_me.R;
 
 import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;

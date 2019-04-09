@@ -93,7 +93,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     private void populateUI() {
         mTweetViewModel.getSearchTweets().observe(this, tweetList -> {
             if(tweetList!=null&&tweetList.size()>0){
-                if(!mTweetViewModel.getHashtag().equals("")) mSearchView.setQueryHint(mTweetViewModel.getHashtag());
+                if(!mTweetViewModel.getHashtag().equals("")||mTweetViewModel.getHashtag()!=null) mSearchView.setQueryHint(mTweetViewModel.getHashtag());
                 mTweetAdapter.addTweetList(tweetList);
                 mTweetAdapter.notifyDataSetChanged();
                 mMaterialButton.setVisibility(View.VISIBLE);
